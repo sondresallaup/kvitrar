@@ -7,8 +7,8 @@ include 'phpmyadmin_connect.php';
 $submit = $_POST['submit'];
 
 $name = strip_tags($_POST['name']);
-$username = strip_tags($_POST['username']);
-$email = strip_tags($_POST['email']);
+$username = strtolower(strip_tags($_POST['username']));
+$email = strtolower(strip_tags($_POST['email']));
 
 $password = strip_tags($_POST['password']);
 $repeatpassword = strip_tags($_POST['repeatpassword']);
@@ -16,6 +16,8 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 	if($name&&$email&&$password&&$repeatpassword&&$username){
 		
 		if(checkIfEmailExists($email)){$_SESSION['registermsg'] = "Eposten er opptatt";}
+		else{
+		if(!(check_email_address($email))){$_SESSION['registermsg'] = "Eposten er ugyldig";}
 		else{
 			if(checkIfUsernameExists($username)){$_SESSION['registermsg'] = "Brukernamnet er opptatt";}
 			else{
@@ -27,13 +29,13 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 			if($password==$repeatpassword){
 				insertUserIntoDB($email,$password,$name,$username);
 
-				$_SESSION['registermsg'] = "Du er blitt registrert!";
+				$_SESSION['registermsg'] = "Du er blitt registrert!    -    <a href='index.php'>Logg inn</a>";
 			}
 			else
 			$_SESSION['registermsg'] = "Passordene samsvarer ikkje";
 		}
 }
-
+}
 }}
 else
 	$_SESSION['registermsg'] = "Fyll ute alle felt!";

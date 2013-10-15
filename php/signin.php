@@ -6,9 +6,7 @@
         <h2 class="form-signin-heading">Vær snill og logg inn</h2>
         <input type="text" class="form-control" name="email" placeholder="Elektronisk postadresse" autofocus>
         <input type="password" class="form-control" name="password" placeholder="Kodeord">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Hugs meg
-        </label>
+        <a href="forgottenpassword.php">Glemt kodeordet?</a>
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Logg inn</button>
 
       <?php echo "<p>".$_SESSION['loginmsg']."</p>"; ?>
