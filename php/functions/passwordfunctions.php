@@ -8,4 +8,13 @@ function checkPasswordLength($password){
 function cryptatePassword($password){
 	return md5($password);
 }
+
+function checkIfCorrectPassword($email,$password){
+	$checkIfCorrectPasswordQuery = mysql_query("SELECT * FROM users WHERE email='$email'");
+	while($checkIfCorrectPasswordRow = mysql_fetch_assoc($checkIfCorrectPasswordQuery)){
+		$dbpassword = $checkIfCorrectPasswordRow['password'];
+	}
+	if(md5($password)==$dbpassword){return TRUE;}
+	else {return FALSE;}
+}
 ?>

@@ -1,4 +1,5 @@
 <?php //userfunctions
+session_start();
 
 function findUserById($id,$x){ // $x = 'name' to return name, $x = 'email' to return email. Returns FALSE if user don't exists
 	$findUserByIdQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
@@ -34,6 +35,28 @@ function insertUserIntoDB($email,$password,$name,$username){
 	$usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
 	$date = date("Y-m-d");
 	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username')");
+}
+
+function findUser_idByEmail($email){
+	$findUser_idByEmailQuery = mysql_query("SELECT * FROM users WHERE email = '$email'");
+	while($findUser_idByEmailRow = mysql_fetch_assoc($findUser_idByEmailQuery)){
+		$user_id = $findUser_idByEmailRow['user_id'];
+	}
+	return $user_id;
+}
+
+function loginUser($id){
+	$loginUserEmailQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
+	while($loginUserEmailRow = mysql_fetch_assoc($loginUserEmailQuery)){
+		$_SESSION['email'] = $loginUserEmailRow['email'];
+	}
+	$loginUserInfoQuery = mysql_query(("SELECT * FROM user_info WHERE user_id = '$id'"));
+	while($loginUserInfoRow = mysql_fetch_assoc($loginUserInfoQuery)){
+		$_SESSION['name'] = $loginUserInfoRow['name'];
+		$_SESSION['date'] = $loginUserInfoRow['date'];
+		$_SESSION['username'] = $loginUserInfoRow['username'];
+	}
+		$_SESSION['loggedin'] = TRUE;
 }
 
 ?>
