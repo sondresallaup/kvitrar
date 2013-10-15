@@ -1,7 +1,9 @@
 <?php
+session_start();
 include 'userfunctions.php';
 include 'passwordfunctions.php';
 include 'phpmyadmin_connect.php';
+
 $submit = $_POST['submit'];
 
 $name = strip_tags($_POST['name']);
@@ -13,10 +15,11 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 	//check that all fields are input
 	if($name&&$email&&$password&&$repeatpassword&&$username){
 		
-		if(!(checkIfEmailExists($email))){echo "Dette brukernavnet er oppdatt";}
+		if(checkIfEmailExists($email)){$_SESSION['registermsg'] = "Eposten er opptatt";}
 		else{
-
-			if(!(checkPasswordLength($password))){echo checkPasswordLength($password);}
+			if(checkIfUsernameExists($username)){$_SESSION['registermsg'] = "Brukernamnet er opptatt";}
+			else{
+			if(!(checkPasswordLength($password)=="TRUE")){$_SESSION['registermsg'] = checkPasswordLength($password);}
 			else{
 			$password = cryptatePassword($password);
 			$repeatpassword = cryptatePassword($repeatpassword);
@@ -24,14 +27,17 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 			if($password==$repeatpassword){
 				insertUserIntoDB($email,$password,$name,$username);
 
-				echo "Du er blitt registrert!";
+				$_SESSION['registermsg'] = "Du er blitt registrert!";
 			}
 			else
-			echo "Passordene samsvarer ikke";
+			$_SESSION['registermsg'] = "Passordene samsvarer ikkje";
 		}
 }
 
-}
+}}
 else
-	echo "Fyll ute alle felt!";
+	$_SESSION['registermsg'] = "Fyll ute alle felt!";
+
+		header('Location: ../../registrer.php');
+
 ?>

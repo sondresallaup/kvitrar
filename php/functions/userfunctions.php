@@ -1,5 +1,4 @@
 <?php //userfunctions
-		include 'phpmyadmin_connect.php';
 
 function findUserById($id,$x){ // $x = 'name' to return name, $x = 'email' to return email. Returns FALSE if user don't exists
 	$findUserByIdQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
@@ -21,8 +20,14 @@ function checkIfEmailExists($email){
 $emailquery = mysql_query("SELECT * FROM users WHERE email = '$email'");
 $numemail = mysql_num_rows($emailquery);
 	if($numemail==1){return TRUE;}
-	else
-		return FALSE;
+	else {return FALSE;}
+}
+
+function checkIfUsernameExists($username){
+$usernamequery = mysql_query("SELECT * FROM user_info WHERE username = '$username'");
+$numusername = mysql_num_rows($usernamequery);
+	if($numusername==1){return TRUE;}
+	else {return FALSE;}
 }
 
 function insertUserIntoDB($email,$password,$name,$username){
