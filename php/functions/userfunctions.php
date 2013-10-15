@@ -1,35 +1,20 @@
 <?php //userfunctions
 session_start();
 
-function findUserById($id,$x){ // $x = 'name' to return name, $x = 'email' to return email, $x = 'date' Returns FALSE if user don't exists
+function findUsernameById($id){
+	$findUsernameByIdQuery = mysql_query("SELECT * FROM user_info WHERE user_id = '$id'");
+	while($findUsernameByIdRow = mysql_fetch_assoc($findUsernameByIdQuery)){
+		$username = $findUsernameByIdRow['username'];
+	}
+	return $username;
+}
 
-if($x == "name"){
-	$findUserByIdEmailQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
-	$findUserByIdNumEmailRows = mysql_num_rows($findUserByIdEmailQuery);
-	if($findUserByIdNumEmailRows==0){return FALSE;}
-	else{
-		while ($findUserByEmailIdRow = mysql_fetch_assoc($findUserByIdEmailQuery)){
-			$dbemail = $findUserByEmailIdRow['email'];
-		}
+function findEmailById($id){
+	$findEmailByIdQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
+	while($findEmailByIdRow = mysql_fetch_assoc($findEmailByIdQuery)){
+		$email = $findEmailByIdRow['email'];
 	}
-	return $dbemail;
-}
-else{
-	$findUserByIdQuery = mysql_query("SELECT * FROM user_info WHERE user_id = '$id'");
-	$findUserByIdNumRows = mysql_num_rows($findUserByIdQuery);
-	if($findUserByIdNumRows==0){return FALSE;}
-	else{
-		while ($findUserByIdRow = mysql_fetch_assoc($findUserByIdQuery)){
-			$dbname = $findUserByIdRow['name'];
-			$dbdate = $findUserByIdRow['date'];
-		}
-		if($x == "name"){return $dbname;}
-		if($x == "date"){return $dbdate;}
-		else
-			return FALSE;
-}
-		
-	}
+	return $email;
 }
 
 function checkIfEmailExists($email){
