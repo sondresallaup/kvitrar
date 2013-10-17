@@ -1,6 +1,14 @@
 <?php //userfunctions
 session_start();
 
+function findNameById($id){
+	$findNameByIdQuery = mysql_query("SELECT * FROM user_info WHERE user_id = '$id'");
+	while($findNameByIdRow = mysql_fetch_assoc($findNameByIdQuery)){
+		$name = $findNameByIdRow['name'];
+	}
+	return $name;
+}
+
 function findUsernameById($id){
 	$findUsernameByIdQuery = mysql_query("SELECT * FROM user_info WHERE user_id = '$id'");
 	while($findUsernameByIdRow = mysql_fetch_assoc($findUsernameByIdQuery)){
@@ -15,6 +23,30 @@ function findEmailById($id){
 		$email = $findEmailByIdRow['email'];
 	}
 	return $email;
+}
+
+function loggedInUsersId(){
+    return $_SESSION['user_id'];
+}
+
+function loggedInUsersName(){
+    return $_SESSION['name'];
+}
+
+function loggedInUsersEmail(){
+    return $_SESSION['email'];
+}
+
+function loggedInUsersRegistrationDate(){
+    return $_SESSION['date'];
+}
+
+function loggedInUsersUsername(){
+    return $_SESSION['username'];
+}
+
+function isLoggedIn(){
+    return $_SESSION['loggedin'];
 }
 
 function checkIfEmailExists($email){
@@ -56,6 +88,7 @@ function findUser_idByUsername($username){
 function loginUser($id){
 	$loginUserEmailQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
 	while($loginUserEmailRow = mysql_fetch_assoc($loginUserEmailQuery)){
+                $_SESSION['user_id'] = $loginUserEmailRow['user_id'];
 		$_SESSION['email'] = $loginUserEmailRow['email'];
 	}
 	$loginUserInfoQuery = mysql_query(("SELECT * FROM user_info WHERE user_id = '$id'"));
@@ -95,5 +128,34 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
 
         return true;
     }
+    
+   function createNewUserDirectory($id){
+       mkdir("./userfolders/$id/", 0777);
+   }
+   
+   function createNewPicturesDirectory($id){
+       mkdir("./userfolders/$id/pictures", 0777);
+   }
+   
+   function createUserDirectoriesForAllUsers(){
+       $queryForAllUsers = mysql_query("SELECT * FROM users WHERE 1");
+	
+        while($rowOfAllUsers = mysql_fetch_assoc($queryForAllUsers)){
+
+        $user_id = $rowOfAllUsers['user_id'];
+        
+        createNewUserDirectory($user_id);
+        createNewPicturesDirectory($user_id);
+  
+        }	
+   }
+   
+   function findProfilePicture($id){
+       return "userfolders/$id/pictures/profilepic.jpg";
+   }
+   
+   function findCurrentPage(){
+       return basename($_SERVER['PHP_SELF']);
+   }
 
 ?>

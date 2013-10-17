@@ -1,4 +1,5 @@
 <?php ?>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src = "js/bootstrap.js"></script>
                
         </body>

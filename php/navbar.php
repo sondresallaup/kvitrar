@@ -9,10 +9,15 @@
     </button>
      <div class = "collapse navbar-collapse navHeaderCollapse">
       <ul class = "nav navbar-nav">
-        <li class = "active"><a href = "http://sondresallaup.com">Heim</a></li>
-        <li><a href = "#">Samhandlingar</a></li>
-        <li><a href = "#">Oppdag</a></li>
-        <li><a href = "/profile.php?i=<?php echo $_SESSION['user_id']; ?>">Meg</a></li>
+        <li <?php if('index.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Heim</a></li>
+        <?php if(isLoggedIn()): ?>
+        <li><a href = "#"><span class="glyphicon glyphicon-record"></span> Samhandlingar</a></li>
+        <li><a href = "#"><span class="glyphicon glyphicon-eye-open"></span> Oppdag</a></li>
+        <li <?php if('profile.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?> ><a href = "profile.php?i=<?php echo loggedInUsersId(); ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>;
+        <?php endif; ?>
+        ?>
       </ul>
       <ul class = "nav navbar-nav navbar-right">
         <form class="navbar-form navbar-left" role="search">
@@ -21,7 +26,19 @@
       </div>
       <button type="submit" class="btn btn-default">søk</button>
     </form>
-        <li><a href = "php/functions/logout.php">Logg ut</a></li>
+          <?php if(isLoggedIn()): ?>
+    <div class="btn-group">
+          <li><button type="button" class="btn btn-default" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-cog"></span></button></li>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="php/functions/logout.php">Logg ut</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+    </div>
+        <?php endif; ?>
       </ul>
     </div>
   </div>

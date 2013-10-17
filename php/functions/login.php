@@ -4,7 +4,7 @@ include 'phpmyadmin_connect.php';
 include 'userfunctions.php';
 include 'passwordfunctions.php';
 
-$email = strtolower(strip_tags($_POST['email']);
+$email = strtolower(strip_tags($_POST['email']));
 $password = strip_tags($_POST['password']);
 //check that all fields are input
 if($email&&$password){
