@@ -158,4 +158,15 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
        return basename($_SERVER['PHP_SELF']);
    }
 
+   function editUsersName($id,$newName){
+       mysql_query("UPDATE user_info SET name = '$newName' WHERE user_id = '$id'");
+   }
+   
+   function editUsersUsername($id,$newUsername){
+       mysql_query("UPDATE user_info SET username = '$newUsername' WHERE user_id = '$id'");
+   }
+   
+   function editUsersEmail($id,$newEmail){
+       mysql_query("UPDATE users SET email = '$newEmail' WHERE user_id = '$id'");
+   }
 ?>

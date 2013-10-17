@@ -8,13 +8,16 @@
         </div>
         <div class="modal-body">
             <form method="POST" action="php/functions/edituser.php">
+            Navn:<input class="form-control" type="text" name="name" value="<?php echo findNameById($profile_id);?>">
             Brukarnavn: <input class="form-control" type="text" name="username" value="<?php echo findUsernameById($profile_id);?>">
+            E-post: <input class="form-control" type="text" name="email" value="<?php echo findEmailById($profile_id);?>">
+            <br>
             
-            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-          <button type="button" class="btn btn-primary">Lagre endringer</button>
+          <button type="submit" class="btn btn-primary">Lagre endringer</button>
+          </form>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
