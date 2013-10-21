@@ -5,6 +5,7 @@ include 'php/functions/userfunctions.php';
 include 'php/functions/statusfunctions.php';
 include 'php/classes/user.php';
 include 'php/classes/followee.php';
+include 'php/classes/status.php';
 ?>
 <!DOCTYPE html>
 <html>

@@ -22,6 +22,19 @@ class User{
         }
     }
     
+    public function contructWithoutUser_id($username,$name,$email,$password,$date){
+        $this->username = $username;
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->date = $date;
+        $queryofUsernames = mysql_query("SELECT * FROM user_info WHERE username = '$username'");
+        while($rowofUsersfromUsername = mysql_fetch_assoc($queryofUsernames)){
+            $this->user_id = $rowofUsersfromUsername['user_id'];
+        }
+    }
+
+
     public function register() {
         $usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
 	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username')");
@@ -29,17 +42,11 @@ class User{
     }
     
     public function login() {
-        $loginUserEmailQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
-	while($loginUserEmailRow = mysql_fetch_assoc($loginUserEmailQuery)){
-                $_SESSION['user_id'] = $loginUserEmailRow['user_id'];
-		$_SESSION['email'] = $loginUserEmailRow['email'];
-	}
-	$loginUserInfoQuery = mysql_query(("SELECT * FROM user_info WHERE user_id = '$id'"));
-	while($loginUserInfoRow = mysql_fetch_assoc($loginUserInfoQuery)){
-		$_SESSION['name'] = $loginUserInfoRow['name'];
-		$_SESSION['date'] = $loginUserInfoRow['date'];
-		$_SESSION['username'] = $loginUserInfoRow['username'];
-	}
+                $_SESSION['user_id'] = $this->user_id;
+		$_SESSION['email'] = $this->email;
+		$_SESSION['name'] = $this->name;
+		$_SESSION['date'] = $this->date;
+		$_SESSION['username'] = $this->username;
 		$_SESSION['loggedin'] = TRUE;
     }
     
@@ -57,6 +64,16 @@ class User{
     
     public function editPassword($newPassword) {
         mysql_query("UPDATE users SET password = '$newPassword' WHERE user_id = '$this->user_id'");
+    }
+    
+    public function isCorrectPassword($password) {
+        $cryptatedPassword = cryptatePassword($password);
+        if($cryptatedPassword == $this->password){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
     }
 }
 

@@ -32,4 +32,10 @@ function generateNewPassword(){
 function editPassword($id,$newPassword){
 	$editPasswordQuery = mysql_query("UPDATE users SET password = '$newPassword' WHERE user_id ='$id'");
 }
+
+function isCorrectSearchInput($search){
+    if(preg_match("/^[A-Za-z]+/", $search)){return TRUE;}
+    else
+    {return FALSE;}
+}
 ?>

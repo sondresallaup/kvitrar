@@ -27,6 +27,8 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 			$repeatpassword = cryptatePassword($repeatpassword);
 
 			if($password==$repeatpassword){
+                            
+                            
 				insertUserIntoDB($email,$password,$name,$username);
                                 
                                 $_SESSION['registermsg'] = "Du er nå registrert";

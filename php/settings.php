@@ -1,4 +1,5 @@
-<?php ?>
+<?php 
+?>
 
 <div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -22,9 +23,9 @@
                   <h5>Generelle innstillinger</h5>
                   
                   <form method="POST" action="php/functions/edituser.php">
-                    Navn:<input class="form-control" type="text" name="name" value="<?php echo findNameById($profile_id);?>">
-                    Brukarnavn: <input class="form-control" type="text" name="username" value="<?php echo findUsernameById($profile_id);?>">
-                    E-post: <input class="form-control" type="text" name="email" value="<?php echo findEmailById($profile_id);?>">
+                    Navn:<input class="form-control" type="text" name="name" value="<?php echo $profile_user->name;?>">
+                    Brukarnavn: <input class="form-control" type="text" name="username" value="<?php echo $profile_user->username;?>">
+                    E-post: <input class="form-control" type="text" name="email" value="<?php echo $profile_user->email;?>">
                   <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                       <button type="submit" class="btn btn-primary">Lagre endringer</button>

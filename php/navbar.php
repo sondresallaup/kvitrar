@@ -20,24 +20,15 @@
         
       </ul>
       <ul class = "nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search">
+        <form class="navbar-form navbar-left" role="search" method="post" action="search.php?go"  id="searchform">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Søk">
+        <input type="text" class="form-control" placeholder="Søk" name="search">
       </div>
-      <button type="submit" class="btn btn-default">søk</button>
+      <button type="submit" name="submit" class="btn btn-default">søk</button>
     </form>
           <?php if(isLoggedIn()): ?>
-    <div class="btn-group">
-          <li><button type="button" class="btn btn-default" data-toggle="dropdown">
-                  <span class="glyphicon glyphicon-cog"></span></button></li>
-          <ul class="dropdown-menu" role="menu">
             <li><a href="php/functions/logout.php">Logg ut</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-    </div>
+            
         <?php endif; ?>
       </ul>
     </div>

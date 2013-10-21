@@ -12,7 +12,9 @@ while($statusRow = mysql_fetch_assoc($queryStatus)){
     $statuswriter_id = $statusRow['user_id'];
     $followee = new Followee($user_id,$statuswriter_id);
     if($followee->isFollowing() || $statuswriter_id == $user_id){
-    printStatus($sta_id);}
+    printStatus($sta_id);
+    
+    }
 
 }
 ?>
