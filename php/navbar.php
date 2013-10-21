@@ -15,9 +15,9 @@
         <li><a href = "#"><span class="glyphicon glyphicon-record"></span> Samhandlingar</a></li>
         <li><a href = "#"><span class="glyphicon glyphicon-eye-open"></span> Oppdag</a></li>
         <li <?php if('profile.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?> ><a href = "profile.php?i=<?php echo loggedInUsersId(); ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>;
+            class = "active" <?php endif; ?> ><a href = "profile.php?i=<?php echo loggedInUsersId(); ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>
         <?php endif; ?>
-        ?>
+        
       </ul>
       <ul class = "nav navbar-nav navbar-right">
         <form class="navbar-form navbar-left" role="search">

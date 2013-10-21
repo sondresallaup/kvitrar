@@ -2,6 +2,9 @@
 session_start();
 include 'php/functions/phpmyadmin_connect.php';
 include 'php/functions/userfunctions.php';
+include 'php/functions/statusfunctions.php';
+include 'php/classes/user.php';
+include 'php/classes/followee.php';
 ?>
 <!DOCTYPE html>
 <html>

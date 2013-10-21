@@ -3,6 +3,7 @@ session_start();
 include 'phpmyadmin_connect.php';
 include 'userfunctions.php';
 include 'passwordfunctions.php';
+include '../classes/user.php';
 
 $email = strtolower(strip_tags($_POST['email']));
 $password = strip_tags($_POST['password']);

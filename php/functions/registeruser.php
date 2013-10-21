@@ -28,8 +28,9 @@ $repeatpassword = strip_tags($_POST['repeatpassword']);
 
 			if($password==$repeatpassword){
 				insertUserIntoDB($email,$password,$name,$username);
-
-				$_SESSION['registermsg'] = "Du er blitt registrert!    -    <a href='index.php'>Logg inn</a>";
+                                
+                                $_SESSION['registermsg'] = "Du er nå registrert";
+                                				
 			}
 			else
 			$_SESSION['registermsg'] = "Passordene samsvarer ikkje";

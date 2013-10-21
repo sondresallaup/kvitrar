@@ -25,6 +25,13 @@ function findEmailById($id){
 	return $email;
 }
 
+function doUserExists($id){
+        $doUserExistsQuery = mysql_query("SELECT * FROM users WHERE user_id = '$id'");
+        $numberUserWithId= mysql_num_rows($doUserExistsQuery);
+        if($numberUserWithId != 0){return TRUE;}
+        else {return FALSE;}
+}
+
 function loggedInUsersId(){
     return $_SESSION['user_id'];
 }
@@ -130,28 +137,25 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
     }
     
    function createNewUserDirectory($id){
-       mkdir("./userfolders/$id/", 0777);
-   }
-   
-   function createNewPicturesDirectory($id){
+       if (!file_exists ("./userfolders/$id/pictures")){
+        mkdir("./userfolders/$id/", 0777);
        mkdir("./userfolders/$id/pictures", 0777);
+       }
    }
    
    function createUserDirectoriesForAllUsers(){
-       $queryForAllUsers = mysql_query("SELECT * FROM users WHERE 1");
+       $queryForAllUsers = mysql_query("SELECT * FROM users");
 	
         while($rowOfAllUsers = mysql_fetch_assoc($queryForAllUsers)){
-
         $user_id = $rowOfAllUsers['user_id'];
         
         createNewUserDirectory($user_id);
-        createNewPicturesDirectory($user_id);
-  
+        
         }	
    }
    
    function findProfilePicture($id){
-       return "userfolders/$id/pictures/profilepic.jpg";
+       return "userfolders/$id/pictures/profilepicture.jpg";
    }
    
    function findCurrentPage(){

@@ -11,11 +11,17 @@ if($newName != findNameById(loggedInUsersId())){
 }
 
 if($newUsername != findUsernameById(loggedInUsersId())){
-    editUsersUsername(loggedInUsersId(),$newUsername);   
+    if(checkIfUsernameExists($newUsername)){
+    editUsersUsername(loggedInUsersId(),$newUsername);
+    }
 }
 
 if($newEmail != findEmailById(loggedInUsersId())){
+    if(check_email_address($newEmail)){
+        if(checkIfEmailExists($newEmail)){
     editUsersEmail(loggedInUsersId(),$newEmail);   
+    }
+    }
 }
 
 $headerUserId = loggedInUsersId();
