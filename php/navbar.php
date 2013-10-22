@@ -1,5 +1,5 @@
 <?php ?>
-<div class = "navbar navbar-inverse navbar-static-top">
+<div class = "navbar navbar-inverse navbar-fixed-top">
   <div class = "container">
     <a href = "http://sondresallaup.com" class = "navbar-brand">Kvitrar</a>
      <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">

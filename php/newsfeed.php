@@ -9,10 +9,18 @@ $user_id = loggedInUsersId();
 <?php
 while($statusRow = mysql_fetch_assoc($queryStatus)){
     $sta_id = $statusRow['status_id'];
-    $statuswriter_id = $statusRow['user_id'];
-    $followee = new Followee($user_id,$statuswriter_id);
-    if($followee->isFollowing() || $statuswriter_id == $user_id){
-    printStatus($sta_id);
+    $status = new Status();
+    $status->withStatus_id($sta_id);
+    $followee = new Followee($user_id,$status->user_id);
+    if($followee->isFollowing() || $status->user_id == $user_id){
+        $status->startWell();
+        $status->printStatus();
+        $status->likeButton();
+        $status->dislikeButton();
+        $status->echoThoseWhichLikes();
+        echo " ";
+        $status->echoThoseWhichDislikes();
+        $status->endWell();
     
     }
 

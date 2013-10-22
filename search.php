@@ -6,7 +6,7 @@ if(isset($_POST['submit']) && isset($_GET['go'])){
     if(isCorrectSearchInput($search)){
         $searchQuery = mysql_query("SELECT user_id FROM user_info WHERE name LIKE '%" . $search . "%' OR username LIKE '%" . $search . "%'");
         $numrows = mysql_num_rows($searchQuery);
-        echo "<ul>";
+        echo "<br><ul>";
         while($searchRow = mysql_fetch_assoc($searchQuery)){
             $user_id = $searchRow['user_id'];
             $user = new User($user_id);
