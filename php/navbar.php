@@ -1,7 +1,7 @@
 <?php ?>
 <div class = "navbar navbar-inverse navbar-fixed-top">
   <div class = "container">
-    <a href = "http://sondresallaup.com" class = "navbar-brand">Kvitrar</a>
+    <a href = "http://sondresallaup.com" class = "navbar-brand hidden-sm">Kvitrar</a>
      <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
       <span class = "icon-bar"></span>
       <span class = "icon-bar"></span>
@@ -20,11 +20,10 @@
         
       </ul>
       <ul class = "nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search" method="post" action="search.php?go"  id="searchform">
+        <form class="navbar-form navbar-left" role="search" method="post" action="search.php"  id="searchform">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Søk" name="search">
+          <input type="typeahead" class="form-control" placeholder="Søk" name="search">
       </div>
-      <button type="submit" name="submit" class="btn btn-default">søk</button>
     </form>
           <?php if(isLoggedIn()): ?>
             <li><a href="php/functions/logout.php">Logg ut</a></li>

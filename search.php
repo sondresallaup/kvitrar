@@ -1,7 +1,8 @@
 <?php
 include 'php/header.php';
 include 'php/functions/passwordfunctions.php';
-if(isset($_POST['submit']) && isset($_GET['go'])){ 
+echo "<br><br>";
+if(isset($_POST['search'])){ 
     $search = $_POST['search'];
     if(isCorrectSearchInput($search)){
         $searchQuery = mysql_query("SELECT user_id FROM user_info WHERE name LIKE '%" . $search . "%' OR username LIKE '%" . $search . "%'");

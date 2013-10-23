@@ -1,10 +1,11 @@
 <?php
+createContentBoxtoRight();
 ?>
-<div class="jumbotron" align="center">
-  <div class="container">
+<br><br>
+  <div class="well" align="center">
       <?php 
       $profilepicturesize = 100;
-      include 'profilepicture.php'; ?>
+            $profile_user->getProfilePicture($profilepicturesize); ?>
     <h3><?php echo $profile_user->name;?></h3>
     <h4>@<?php echo $profile_user->username;?></h4>
     <?php if($profile_id != loggedInUsersId() && !$followee->isFollowing()): ?>
@@ -16,6 +17,7 @@
     <?php if($profile_id == loggedInUsersId()): ?>
      <a data-toggle="modal" href="#settings" class="btn btn-default">Endre profil</a>
      <?php endif; ?>
+</div>
 </div>
     
 <?php 

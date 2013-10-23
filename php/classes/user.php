@@ -50,6 +50,13 @@ class User{
 		$_SESSION['loggedin'] = TRUE;
     }
     
+    public function getProfilePicture($picturesize){
+        if(is_readable("userfolders/$this->user_id/pictures/profilepicture.jpg")){
+            echo '<img src="userfolders/'.$this->user_id.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
+        else{
+             echo '<img src="php/profile/img/defaultprofilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
+    }
+    
     public function editUsername($newUsername) {
         mysql_query("UPDATE user_info SET username = '$newUsername' WHERE user_id = '$this->user_id'");
     }
@@ -74,6 +81,24 @@ class User{
         else{
             return FALSE;
         }
+    }
+    
+    public function getNumberStatuses(){
+        $queryofstatuses = mysql_query("SELECT * FROM status WHERE user_id = '$this->user_id'");
+        $numberofstatuses = mysql_num_rows($queryofstatuses);
+        return $numberofstatuses;
+    }
+    
+    public function getNumberFollowees(){
+        $queryoffollowees = mysql_query("SELECT * FROM follow WHERE follower_id = '$this->user_id'");
+        $numberoffollowees = mysql_num_rows($queryoffollowees);
+        return $numberoffollowees;
+    }
+    
+    public function getNumberFollowers(){
+        $queryoffollowers = mysql_query("SELECT * FROM follow WHERE followee_id = '$this->user_id'");
+        $numberoffollowers = mysql_num_rows($queryoffollowers);
+        return $numberoffollowers;
     }
 }
 

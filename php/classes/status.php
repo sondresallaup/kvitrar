@@ -33,11 +33,12 @@ class Status{
             $profile_id = $this->user_id;
             $profilepicturesize = 50;
 
-        include 'php/profile/profilepicture.php';
-        echo '<b><a href=profile.php?i='.  $this->user_id.'>'.$user->name.'</a></b>
+        //include 'php/profile/profilepicture.php';
+            echo $user->getProfilePicture($profilepicturesize);
+        echo '<b> <a href=profile.php?i='.  $this->user_id.'>'.$user->name.'</a></b>
             <p class="text-muted">@'.$user->username.'</p>
-                <a>'.  $this->status.'</a><br>
-               <i>'.  $this->time.'</i><br>';
+                <p>'.  $this->status.'</p>
+               <i class="text-muted">'.  $this->time.'</i><br>';
     }
     
     public function likeButton() {
@@ -103,7 +104,7 @@ class Status{
                 $i++;
             }
             $stringOfLikers = $stringOfLikers." liker dette.";
-            echo "<a>".$stringOfLikers."</a>";
+            echo '<p class="text-muted">'.$stringOfLikers.'</p>';
         }
     }
    
@@ -127,8 +128,8 @@ class Status{
                 
                 $i++;
             }
-            $stringOfdislikers = $stringOfdislikers." liker dette ikke.";
-            echo "<a>".$stringOfdislikers."</a>";
+            $stringOfdislikers = $stringOfdislikers." liker ikke dette.";
+            echo '<p class="text-muted">'.$stringOfdislikers.'</p>';
         }
     }
     
