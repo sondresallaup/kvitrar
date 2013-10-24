@@ -29,16 +29,23 @@ class Status{
     
     public function printStatus() {
         $user = new User($this->user_id);
-        
-            $profile_id = $this->user_id;
             $profilepicturesize = 50;
-
-        //include 'php/profile/profilepicture.php';
+            
             echo $user->getProfilePicture($profilepicturesize);
         echo '<b> <a href=profile.php?i='.  $this->user_id.'>'.$user->name.'</a></b>
             <p class="text-muted">@'.$user->username.'</p>
                 <p>'.  $this->status.'</p>
                <i class="text-muted">'.  $this->time.'</i><br>';
+    }
+    
+    public function printComments(){
+        $queryComment = mysql_query("SELECT * FROM comments WHERE status_id = '$this->status_id' ORDER BY comment_id DESC");
+        while($commentRow = mysql_fetch_assoc($queryComment)){
+            $comment_id = $commentRow['comment_id'];
+            $comment = new Comment();
+            $comment->withComment_id($comment_id);
+            $comment->printComment();
+        }
     }
     
     public function likeButton() {
@@ -104,7 +111,7 @@ class Status{
                 $i++;
             }
             $stringOfLikers = $stringOfLikers." liker dette.";
-            echo '<p class="text-muted">'.$stringOfLikers.'</p>';
+            echo $stringOfLikers;
         }
     }
    
@@ -129,7 +136,7 @@ class Status{
                 $i++;
             }
             $stringOfdislikers = $stringOfdislikers." liker ikke dette.";
-            echo '<p class="text-muted">'.$stringOfdislikers.'</p>';
+            echo $stringOfdislikers;
         }
     }
     

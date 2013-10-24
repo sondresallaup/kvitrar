@@ -6,6 +6,7 @@ include 'php/functions/statusfunctions.php';
 include 'php/classes/user.php';
 include 'php/classes/followee.php';
 include 'php/classes/status.php';
+include 'php/classes/comment.php';
 include 'php/functions/generatejsonfilefromusers.php';
 include 'php/functions/stylingfunctions.php';
 ?>

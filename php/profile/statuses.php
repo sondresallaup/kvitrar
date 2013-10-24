@@ -17,9 +17,14 @@ echo "<h3>Statuser</h3>";
                 $status->likeButton();
                 $status->dislikeButton();
                 echo "</div> ";
+                echo '<p class="text-muted">';
                 $status->echoThoseWhichLikes();
                 echo " ";
                 $status->echoThoseWhichDislikes();
+                echo '</p><hr><div class="container">';
+                $status->printComments();
+                include 'php/profile/commentinput.php';
+                echo '</div>';
                 $status->endWell();
 		}
  
