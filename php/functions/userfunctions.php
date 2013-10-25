@@ -173,4 +173,19 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
    function editUsersEmail($id,$newEmail){
        mysql_query("UPDATE users SET email = '$newEmail' WHERE user_id = '$id'");
    }
+   
+   function findUsersLocation(){
+       require_once("ip.codehelper.io.php"); 
+        require_once("php_fast_cache.php"); 
+
+        // New Class 
+        $_ip = new ip_codehelper(); 
+
+        // Detect Real IP Address & Location 
+        $real_client_ip_address = $_ip->getRealIP(); 
+        $visitor_location       = $_ip->getLocation($real_client_ip_address); 
+
+        // Output result 
+        return $visitor_location['City'];
+   }
 ?>

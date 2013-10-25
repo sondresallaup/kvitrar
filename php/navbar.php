@@ -12,7 +12,8 @@
         <li <?php if('index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Heim</a></li>
         <?php if(isLoggedIn()): ?>
-        <li><a href = "#"><span class="glyphicon glyphicon-record"></span> Samhandlingar</a></li>
+        <li <?php if('connect.php' == findCurrentPage()): ?> 
+            class = "active" <?php endif; ?>><a href = "connect.php"><span class="glyphicon glyphicon-record"></span> Samhandlingar</a></li>
         <li><a href = "#"><span class="glyphicon glyphicon-eye-open"></span> Oppdag</a></li>
         <li <?php if('profile.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "profile.php?i=<?php echo loggedInUsersId(); ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>

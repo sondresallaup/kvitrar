@@ -26,6 +26,11 @@ class Comment{
         
     public function saveInDb() {
         mysql_query("INSERT INTO comments VALUES ('','$this->status_id','$this->user_id','$this->comment','$this->time')");
+        $commentnotification = new Notification();
+        $status = new Status();
+        $status->withStatus_id($this->status_id);
+        $commentnotification->byUser_idandType($status->user_id,"COMMENT",  $this->comment_id);
+        $commentnotification->saveInDb();
     }
     
     public function printComment() {

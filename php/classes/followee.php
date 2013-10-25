@@ -22,11 +22,14 @@ class Followee {
     }
     
     public function follow() {
-        $followQuery = mysql_query("INSERT INTO follow VALUES ('','$this->follower_id','$this->followee_id','$this->time') ");
+        mysql_query("INSERT INTO follow VALUES ('','$this->follower_id','$this->followee_id','$this->time') ");
+        $follownotification = new Notification();
+        $follownotification->byUser_idandType($this->followee_id, "FOLLOW", '');
+        $follownotification->saveInDb();
     }
     
     public function unfollow() {
-        $unfollowQuery = mysql_query("DELETE FROM follow WHERE follower_id ='$this->follower_id' AND followee_id = '$this->followee_id'");
+        mysql_query("DELETE FROM follow WHERE follower_id ='$this->follower_id' AND followee_id = '$this->followee_id'");
     }
     
    

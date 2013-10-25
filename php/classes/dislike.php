@@ -20,6 +20,11 @@ class Dislike{
     
     public function dislikeStatus(){
         mysql_query("INSERT INTO dislikes VALUES ('','$this->disliker_id','$this->status_id')");
+        $dislikenotification = new Notification();
+        $status = new Status();
+        $status->withStatus_id($this->status_id);
+        $dislikenotification->byUser_idandType($status->user_id,"DISLIKE",  $this->status_id);
+        $dislikenotification->saveInDb();
         
     }
     

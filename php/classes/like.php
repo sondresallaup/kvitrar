@@ -20,6 +20,11 @@ class Like{
     
     public function likeStatus(){
         mysql_query("INSERT INTO likes VALUES ('','$this->liker_id','$this->status_id')");
+        $likenotification = new Notification();
+        $status = new Status();
+        $status->withStatus_id($this->status_id);
+        $likenotification->byUser_idandType($status->user_id,"LIKE",$this->status_id);
+        $likenotification->saveInDb();
         
     }
     

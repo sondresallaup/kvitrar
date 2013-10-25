@@ -3,6 +3,8 @@ session_start();
 include 'statusfunctions.php';
 include 'userfunctions.php';
 include '../classes/comment.php';
+include '../classes/notification.php';
+include '../classes/status.php';
 
 $newcomment = $_POST['comment'];
 $status_id = $_POST['status_id'];

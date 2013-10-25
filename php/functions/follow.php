@@ -3,6 +3,7 @@ session_start();
 include 'phpmyadmin_connect.php';
 include 'userfunctions.php';
 include '../classes/followee.php';
+include '../classes/notification.php';
 
 $followee_id = $_GET['i'];
 

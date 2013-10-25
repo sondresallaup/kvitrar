@@ -1,6 +1,4 @@
 <?php
-include 'like.php';
-include 'dislike.php';
 class Status{
     public $status_id;
     public $user_id;

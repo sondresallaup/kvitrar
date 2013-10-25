@@ -1,8 +1,10 @@
 <?php
 session_start();
 include 'phpmyadmin_connect.php';
+include '../classes/status.php';
 include '../classes/like.php';
 include '../classes/dislike.php';
+include '../classes/notification.php';
 include 'userfunctions.php';
 $status_id = $_GET['i'];
 
