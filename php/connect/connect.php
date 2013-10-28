@@ -1,11 +1,10 @@
 <?php
-createContainer();
-createRow();
-createContentBoxtoRight();
 ?>
+<div class="tab-pane active" id="connect">
+    <?php createContentBoxtoRight();?>
 <br><br>
   <div class="well">
-      <h3>Samhandlingar</h3><hr>
+      <h3>Notifikasjonar</h3><hr>
       <?php 
       $notificationQuery = mysql_query("SELECT notification_id FROM notifications WHERE to_user_id = '$user->user_id' ORDER BY notification_id DESC");
       while($notificationRow = mysql_fetch_assoc($notificationQuery)){
@@ -17,8 +16,9 @@ createContentBoxtoRight();
       ?>
 </div>
 </div>
+</div>
     
 <?php 
 
-endBox();
+
 ?>

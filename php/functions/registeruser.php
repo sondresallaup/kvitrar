@@ -3,6 +3,7 @@ session_start();
 include 'userfunctions.php';
 include 'passwordfunctions.php';
 include 'phpmyadmin_connect.php';
+include 'datefunctions.php';
 
 $submit = $_POST['submit'];
 

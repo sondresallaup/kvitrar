@@ -2,6 +2,7 @@
 session_start();
 include 'statusfunctions.php';
 include 'userfunctions.php';
+include 'datefunctions.php';
 include '../classes/comment.php';
 include '../classes/notification.php';
 include '../classes/status.php';

@@ -27,7 +27,7 @@ class Notification{
     }
     
     public function saveInDb(){
-        $this->time = date("Y-m-d-h-m-s");
+        $this->time = currentTime();
         if(!$this->isFromandToUserTheSame() && !$this->isAlreadyNotified()){
         $saveNotificationindbQuery = mysql_query("INSERT INTO notifications VALUES ('','$this->from_user_id','$this->to_user_id','$this->notification_type','$this->type_id','$this->time')");
         }

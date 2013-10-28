@@ -10,7 +10,7 @@ class Comment{
         $this->status_id = $status_id;
         $this->comment = $comment;
         $this->user_id = loggedInUsersId();
-        $this->time = date("Y-m-d-h-m-s");
+        $this->time = currentTime();
         }
         
     public function withComment_id($comment_id) {
@@ -29,7 +29,7 @@ class Comment{
         $commentnotification = new Notification();
         $status = new Status();
         $status->withStatus_id($this->status_id);
-        $commentnotification->byUser_idandType($status->user_id,"COMMENT",  $this->comment_id);
+        $commentnotification->byUser_idandType($status->user_id,"COMMENT",  $this->status_id);
         $commentnotification->saveInDb();
     }
     

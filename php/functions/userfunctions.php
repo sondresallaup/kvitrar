@@ -72,7 +72,7 @@ $numusername = mysql_num_rows($usernamequery);
 
 function insertUserIntoDB($email,$password,$name,$username){
 	$usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
-	$date = date("Y-m-d");
+	$date = currentTime();
 	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username')");
 }
 
@@ -87,7 +87,7 @@ function findUser_idByEmail($email){
 function findUser_idByUsername($username){
 	$findUser_idByUsernameQuery = mysql_query("SELECT * FROM user_info WHERE username = '$username'");
 	while($findUser_idByUsernameRow = mysql_fetch_assoc($findUser_idByUsernameQuery)){
-		$user_id = $findUser_idByUsernameRow['username'];
+		$user_id = $findUser_idByUsernameRow['user_id'];
 	}
 	return $user_id;
 }

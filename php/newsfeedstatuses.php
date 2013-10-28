@@ -24,6 +24,8 @@ while($statusRow = mysql_fetch_assoc($queryStatus)){
         include 'php/profile/commentinput.php';
         echo '</div>';
         $status->endWell();
+        
+        
     
     }
 

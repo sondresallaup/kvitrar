@@ -8,7 +8,7 @@ class Status{
     public function withStatus($status) {
         $this->status = $status;
         $this->user_id = loggedInUsersId();
-        $this->time = date("Y-m-d-h-m-s");
+        $this->time = currentTime();
         }
         
     public function withStatus_id($status_id) {
