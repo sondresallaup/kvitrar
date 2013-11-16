@@ -30,7 +30,7 @@ class Status{
             $profilepicturesize = 50;
             
             echo $user->getProfilePicture($profilepicturesize);
-        echo '<b> <a href=profile.php?i='.  $this->user_id.'>'.$user->name.'</a></b>
+        echo '<b> <a href=/'.  $this->user_name.'>'.$user->name.'</a></b>
             <p class="text-muted">@'.$user->username.'</p>
                 <p>'.  $this->status.'</p>
                <i class="text-muted">'.  $this->time.'</i><br>';
@@ -52,7 +52,7 @@ class Status{
         if($like->isLikedbyUser()){
             echo '
             <button onclick="';
-            echo "location.href='php/functions/newlike.php?i=$this->status_id'";
+            echo "location.href='/php/functions/newlike.php?i=$this->status_id'";
             echo '" type="button" class="btn btn-success btn-xs">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
               </button>';
@@ -60,7 +60,7 @@ class Status{
         else{
         echo '
         <button onclick="';
-        echo "location.href='php/functions/newlike.php?i=$this->status_id'";
+        echo "location.href='/php/functions/newlike.php?i=$this->status_id'";
         echo '" type="button" class="btn btn-default btn-xs">
             <span class="glyphicon glyphicon-thumbs-up"></span>
           </button>';
@@ -73,7 +73,7 @@ class Status{
         if($dislike->isdislikedbyUser()){
             echo '
             <button onclick="';
-            echo "location.href='php/functions/newdislike.php?i=$this->status_id'";
+            echo "location.href='/php/functions/newdislike.php?i=$this->status_id'";
             echo '" type="button" class="btn btn-danger btn-xs">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
               </button>';
@@ -81,7 +81,7 @@ class Status{
         else{
         echo '
         <button onclick="';
-        echo "location.href='php/functions/newdislike.php?i=$this->status_id'";
+        echo "location.href='/php/functions/newdislike.php?i=$this->status_id'";
         echo '" type="button" class="btn btn-default btn-xs">
             <span class="glyphicon glyphicon-thumbs-down"></span>
           </button>';

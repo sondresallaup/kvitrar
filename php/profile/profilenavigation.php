@@ -6,27 +6,23 @@
     <div class="well">
                 <ul class="nav nav-pills nav-stacked hidden-sm hidden-xs">
                     
-        <li class="active"><a href="#statuses" data-toggle="tab">Statuser</a></li>
-       <li><a href="#followers" data-toggle="tab">Følgerar</a></li>
-       <li><a href="#followees" data-toggle="tab">Forfølgerar</a></li>
+        <li <?php if('/' .$profile_user->username . '/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>">Statuser</a></li>
+       <li <?php if('/' .$profile_user->username . '/followers/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>/followers">Følgerar</a></li>
+       <li <?php if('/' .$profile_user->username . '/following/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>/following">Forfølgerar</a></li>
        </ul>
         
         <ul class="nav nav-pills visible-sm visible-xs">
                     
-        <li class="active"><a href="#statuses" data-toggle="tab">Statuser</a></li>
-       <li><a href="#followers" data-toggle="tab">Følgerar</a></li>
-       <li><a href="#followees" data-toggle="tab">Forfølgerar</a></li>
+        <li <?php if('/' .$profile_user->username . '/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>">Statuser</a></li>
+       <li <?php if('/' .$profile_user->username . '/followers/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>/followers">Følgerar</a></li>
+       <li <?php if('/' .$profile_user->username . '/following/index.php' == findCurrentPage()){ echo 'class="active"';}?>><a href="/<?php echo $profile_user->username; ?>/following">Forfølgerar</a></li>
        </ul>
         
         </div>
 </div>
-<?php include 'profilehead.php';?>
-    <div class="tab-content">
-    <?php 
-    include 'statuses.php';
-    include 'followers.php';
-    include 'followees.php';
-    ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/php/profile/profilehead.php';?>
+    <div>
+   
     
     </div>
     

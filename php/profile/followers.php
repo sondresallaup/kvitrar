@@ -1,7 +1,7 @@
 <?php
 $followerQuery = mysql_query("SELECT * FROM follow WHERE follower_id = '$profile_id'");
 ?>
-<div class="tab-pane" id="followers">
+<div>
     <?php    createContentBoxtoRight();?>
     <h3>Følgerar</h3>
     <ul class="list-unstyled">

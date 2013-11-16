@@ -65,10 +65,10 @@ class User{
     }
     
     public function getProfilePicture($picturesize){
-        if(is_readable("userfolders/$this->user_id/pictures/profilepicture.jpg")){
-            echo '<img src="userfolders/'.$this->user_id.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
+        if(!(is_readable("userfolders/$this->user_id/pictures/profilepicture.jpg")) || !(is_readable("../userfolders/$this->user_id/pictures/profilepicture.jpg")) || !(is_readable("../../userfolders/$this->user_id/pictures/profilepicture.jpg"))){
+             echo '<img src="/php/profile/img/defaultprofilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
         else{
-             echo '<img src="php/profile/img/defaultprofilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
+             echo '<img src="/userfolders/'.$this->user_id.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
     }
     
     public function editUsername($newUsername) {
@@ -150,13 +150,14 @@ class User{
              echo '<div class="well">';
             echo '<h3> '.$contact->name.'</h3><hr>';
             $conversation->printMessages();
-             echo '<form action="php/functions/newmessage.php" method="POST">';
+             echo '<form action="/php/functions/newmessage.php" method="POST">';
             echo '<input type="hidden" name="to_user" value="'.$contact->username.'">';
-            include 'php/messages/newmessageinputbox.php';
+            include '/php/messages/newmessageinputbox.php';
             
             echo '</div></div></div>';
         }
     }
+    
 }
 
 ?>

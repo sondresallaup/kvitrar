@@ -40,7 +40,7 @@ class Comment{
             $profilepicturesize = 25;
             
             echo $user->getProfilePicture($profilepicturesize);
-        echo '<b> <a href=profile.php?i='.  $this->user_id.'>'.$user->name.'</a></b>
+        echo '<b> <a href=/'. $user->username.'>'.$user->name.'</a></b>
                 <p>'.  $this->comment.'</p>
                <i class="text-muted">'.  $this->time.'</i><br>';
     }

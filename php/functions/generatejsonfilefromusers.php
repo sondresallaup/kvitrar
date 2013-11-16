@@ -6,6 +6,6 @@ while ($userrow = mysql_fetch_assoc($queryofusers)) {
 }
 
 $json_data = json_encode($searchdata);
-file_put_contents('json/usersname.json', $json_data);
+//file_put_contents('/json/usersname.json', $json_data);
 
 ?>

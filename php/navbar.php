@@ -10,14 +10,14 @@
      <div class = "collapse navbar-collapse navHeaderCollapse">
       <ul class = "nav navbar-nav">
         <li <?php if('index.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Heim</a></li>
+            class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Hjem</a></li>
         <?php if(isLoggedIn()): ?>
         <li <?php if('connect.php' == findCurrentPage()): ?> 
-            class = "active" <?php endif; ?>><a href = "connect.php"><span class="glyphicon glyphicon-record"></span> Notifikasjonar</a></li>
+            class = "active" <?php endif; ?>><a href = "/connect.php"><span class="glyphicon glyphicon-record"></span> Notifikasjoner</a></li>
         <li <?php if('messages.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?>><a href = "messages.php"><span class="glyphicon glyphicon-envelope"></span> Meldingar</a></li>
+            class = "active" <?php endif; ?>><a href = "/messages.php"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
         <li <?php if('profile.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?> ><a href = "profile.php?i=<?php echo loggedInUsersId(); ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>
+            class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>
         <?php endif; ?>
         
       </ul>
@@ -28,7 +28,7 @@
       </div>
     </form>
           <?php if(isLoggedIn()): ?>
-            <li><a href="php/functions/logout.php">Logg ut</a></li>
+            <li><a href="/php/functions/logout.php">Logg ut</a></li>
             
         <?php endif; ?>
       </ul>

@@ -23,7 +23,7 @@ echo "<h3>Statuser</h3>";
                 $status->echoThoseWhichDislikes();
                 echo '</p><hr><div class="container">';
                 $status->printComments();
-                include 'php/profile/commentinput.php';
+                include $_SERVER['DOCUMENT_ROOT'] . '/php/profile/commentinput.php';
                 echo '</div>';
                 $status->endWell();
 		}

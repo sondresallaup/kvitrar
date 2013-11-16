@@ -1,20 +1,20 @@
 <?php
 session_start();
-include 'php/functions/phpmyadmin_connect.php';
-include 'php/functions/userfunctions.php';
-include 'php/functions/statusfunctions.php';
-include 'php/functions/datefunctions.php';
-include 'php/classes/user.php';
-include 'php/classes/followee.php';
-include 'php/classes/status.php';
-include 'php/classes/like.php';
-include 'php/classes/dislike.php';
-include 'php/classes/comment.php';
-include 'php/classes/notification.php';
-include 'php/classes/conversation.php';
-include 'php/classes/message.php';
-include 'php/functions/generatejsonfilefromusers.php';
-include 'php/functions/stylingfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/phpmyadmin_connect.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/userfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/statusfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/datefunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/user.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/followee.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/status.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/like.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/dislike.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/comment.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/notification.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/conversation.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/message.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/generatejsonfilefromusers.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/stylingfunctions.php';
 ?>
 <!DOCTYPE html>
 <html>

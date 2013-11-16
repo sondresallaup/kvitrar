@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-include 'php/header.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/header.php';
 
 echo "<br>";
 
-if(!(isLoggedIn())){include 'php/signin.php';}
-if(isLoggedIn()){include 'php/newsfeed.php';}
-include 'php/footer.php';
+if(!(isLoggedIn())){include $_SERVER['DOCUMENT_ROOT'] . '/php/signin.php';}
+if(isLoggedIn()){include $_SERVER['DOCUMENT_ROOT'] . '/php/newsfeed.php';}
+include $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';
 
 ?>

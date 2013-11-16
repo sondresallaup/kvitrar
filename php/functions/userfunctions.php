@@ -32,6 +32,11 @@ function doUserExists($id){
         else {return FALSE;}
 }
 
+function loggedInUser(){
+    $loggedInUser = new User($_SESSION['user_id']);
+    return $loggedInUser;
+}
+
 function loggedInUsersId(){
     return $_SESSION['user_id'];
 }
@@ -71,7 +76,7 @@ $numusername = mysql_num_rows($usernamequery);
 }
 
 function insertUserIntoDB($email,$password,$name,$username){
-	$usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
+        $usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
 	$date = currentTime();
 	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username')");
 }
@@ -136,11 +141,23 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
         return true;
     }
     
-   function createNewUserDirectory($id){
-       if (!file_exists ("./userfolders/$id/pictures")){
-        mkdir("./userfolders/$id/", 0777);
-       mkdir("./userfolders/$id/pictures", 0777);
+   function createNewUserDirectory($user_id){
+       $user = new User($user_id);
+       if(!file_exists("./$user->username/")){
+        mkdir("./$user->username/", 0777);
+       mkdir("./$user->username/following", 0777);
+       mkdir("./$user->username/followers", 0777);
+       mkdir("./$user->username/lists", 0777);
+       mkdir("./$user->username/favorites", 0777);
        }
+       $profiletemplate = file_get_contents("./php/profile/template/index.php", TRUE);
+       $followerstemplate = file_get_contents("./php/profile/template/followers/index.php", TRUE);
+       $followingtemplate = file_get_contents("./php/profile/template/following/index.php", TRUE);
+       
+       file_put_contents("./$user->username/index.php", $profiletemplate);
+       file_put_contents("./$user->username/followers/index.php", $followerstemplate);
+       file_put_contents("./$user->username/following/index.php", $followingtemplate);
+   
    }
    
    function createUserDirectoriesForAllUsers(){
@@ -159,7 +176,7 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
    }
    
    function findCurrentPage(){
-       return basename($_SERVER['PHP_SELF']);
+       return ($_SERVER['PHP_SELF']);
    }
 
    function editUsersName($id,$newName){
@@ -188,4 +205,6 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
         // Output result 
         return $visitor_location['City'];
    }
+   
+   
 ?>
