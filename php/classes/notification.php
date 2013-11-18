@@ -38,7 +38,8 @@ class Notification{
         $printNotificationString = $fromUser->getProfilePicture(50);
         $printNotificationString = $printNotificationString." <b>".$fromUser->name."</b> ".$this->getNotificationHeader();
         $printNotificationString = $printNotificationString."<br>".$this->getNotificationIcon();
-        $printNotificationString = $printNotificationString." <i>".$this->getNotificationBody()."</i>";
+        $printNotificationString = $printNotificationString." <i>".$this->getNotificationBody();
+        $printNotificationString = $printNotificationString. "<br>". timeSince($this->time) . "</i>";
         echo $printNotificationString ."<hr>";
         
         

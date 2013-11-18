@@ -12,7 +12,7 @@ $followeeQuery = mysql_query("SELECT * FROM follow WHERE followee_id = '$profile
         $followee = new User($followee_id);
         echo "<li>";
         echo $followee->getProfilePicture(20);
-        echo "<b><a href=profile.php?i=$followee_id>".$followee->name." </a></b>";
+        echo '<b><a href="/'.$followee->username.'">'.$followee->name.' </a></b>';
         echo "<i>@".$followee->username."</i>";
         echo "</li>";
     }

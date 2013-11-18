@@ -1,6 +1,8 @@
 <?php
 session_start();
-include 'userfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/phpmyadmin_connect.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/userfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/user.php';
 
 
 $allowedExts = array("gif", "jpeg", "jpg", "png");
@@ -22,8 +24,8 @@ if ((($_FILES["file"]["type"] == "image/gif")
   else
     {
       move_uploaded_file($_FILES["file"]["tmp_name"],
-      "../../userfolders/" . loggedInUsersId(). "/pictures/"  ."profilepicture.jpg");
-      header("Location: ../../profile.php?i=".loggedInUsersId()."");
+      "../../" . loggedInUser()->username. "/pictures/"  ."profilepicture.jpg");
+      header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
   }
 else

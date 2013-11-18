@@ -40,9 +40,9 @@ class Comment{
             $profilepicturesize = 25;
             
             echo $user->getProfilePicture($profilepicturesize);
-        echo '<b> <a href=/'. $user->username.'>'.$user->name.'</a></b>
+        echo '<b> <a href="/'. $user->username.'">'.$user->name.' '.$user->getUserTypeIcon(10).'</a></b>
                 <p>'.  $this->comment.'</p>
-               <i class="text-muted">'.  $this->time.'</i><br>';
+               <i class="text-muted">'.  timeSince($this->time).'</i><br>';
     }
     
     

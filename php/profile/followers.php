@@ -11,7 +11,7 @@ $followerQuery = mysql_query("SELECT * FROM follow WHERE follower_id = '$profile
         $follower = new User($follower_id);
         echo "<li>";
         echo $follower->getProfilePicture(20);
-        echo "<b><a href=profile.php?i=$follower_id>".$follower->name." </a></b>";
+        echo '<b><a href="/'.$follower->username.'">'.$follower->name.' </a></b>';
         echo "<i>@".$follower->username."</i>";
         echo "</li>";
     }

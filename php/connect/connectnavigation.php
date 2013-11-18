@@ -10,7 +10,7 @@
 </div>
     <div class="tab-content">
     <?php 
-    include 'php/connect/connect.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/php/connect/connect.php';
     ?>
     
     </div>

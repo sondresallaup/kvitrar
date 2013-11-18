@@ -52,9 +52,9 @@ class Conversation{
             $message->withMessage_id($message_id);
             $from_user = new User($from_id);
             $from_user->getProfilePicture(40);
-            echo '<b>'.$from_user->name.'</b>';
+            echo '<b> '.$from_user->name.'</b>';
             echo '<p>'.$message->message.'</p>';
-            echo '<i>'.$message->time.'</i><hr>';
+            echo '<i>'.timeSince($message->time).'</i><hr>';
         }
     }
     

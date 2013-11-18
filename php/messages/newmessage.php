@@ -6,7 +6,7 @@
 createContentBoxtoRight();
 ?>
         <div class="well">
-<form action="php/functions/newmessage.php" method="POST">
+<form action="/php/functions/newmessage.php" method="POST">
     <div class="form-group">
         <?php if($to_user_id):
             $to_user = new User($to_user_id);?>
@@ -19,6 +19,6 @@ createContentBoxtoRight();
         </div>
         
 <div class="well">
-        <?php include 'newmessageinputbox.php'; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/php/messages/newmessageinputbox.php'; ?>
     
 </div> </div></div>

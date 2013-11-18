@@ -6,6 +6,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <?php if(loggedInUsersId()== $profile_id): ?>
           <h4 class="modal-title">Innstillinger</h4>
         </div>
         <div class="modal-body">
@@ -22,9 +23,9 @@
                 <div class="tab-pane active" id="account">
                   <h5>Generelle innstillinger</h5>
                   
-                  <form method="POST" action="php/functions/edituser.php">
+                  <form method="POST" action="/php/functions/edituser.php">
                     Navn:<input class="form-control" type="text" name="name" value="<?php echo $profile_user->name;?>">
-                    Brukarnavn: <input class="form-control" type="text" name="username" value="<?php echo $profile_user->username;?>">
+                    Brukernavn: <input class="form-control" type="text" name="username" value="<?php echo $profile_user->username;?>">
                     E-post: <input class="form-control" type="text" name="email" value="<?php echo $profile_user->email;?>">
                   <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
@@ -37,7 +38,7 @@
                 <div class="tab-pane" id="password">
                   <h5>Endre passord</h5>
                   
-                  <form method="POST" action="php/functions/editpassword.php">
+                  <form method="POST" action="/php/functions/editpassword.php">
                     Nåværende passord:<input class="form-control" type="password" name="currentpassword">
                     Nytt passord: <input class="form-control" type="password" name="newpassword">
                     Gjenta nytt passord: <input class="form-control" type="password" name="repeatpassword">
@@ -51,7 +52,7 @@
                 <div class="tab-pane" id="profilepicture">
                   <h3>Endre profilbilde</h3>
                   
-                  <form action="php/functions/upload_picture.php" method="post"
+                  <form action="/php/functions/upload_picture.php" method="post"
                     enctype="multipart/form-data">
                     <label for="file">Nytt profilbilde:</label>
                     <input type="file" name="file" id="file"><br>
@@ -63,24 +64,31 @@
                   </form>
                 </div>
 
-                  
-                  
-                  
-                  
-                  
-                </div>
+                   </div>
                 
               </div>
             
-            
-            
-            
+                 
             </div>
-                
+              <?php endif; ?> 
+           <?php if(loggedInUser()->isAdmin() && loggedInUsersId()!= $profile_id): ?>
+          <h4 class="modal-title">Verifiser brukerkonto</h4>
+        </div>
+        <div class="modal-body">
+            <div class="tab-content">
+                <form method="POST" action="/php/functions/editusertype.php">
+                    <input type="hidden" value="<?php echo $profile_id; ?>" name="profile_id">
+               Ditt admin-passord: <input class="form-control" type="password" name="adminpassword">
+               <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                     <button type="submit" name="submit" value="submit" class="btn btn-primary">OK</button>
+                  </div>
+                  </form>
+            </div>
         </div>
         
           
-          
+          <?php endif;?>
           
           
       </div><!-- /.modal-content -->

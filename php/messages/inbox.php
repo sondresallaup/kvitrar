@@ -1,5 +1,6 @@
 <?php 
 $user = new User(loggedInUsersId());
-$user->getMessages();
+echo '<br><br>';
+$user->getMessages($contact_id);
 ?>
 

@@ -1,30 +1,33 @@
 <?php
-include 'phpmyadmin_connect.php';
-include 'userfunctions.php';
+session_start();
+include $_SERVER['DOCUMENT_ROOT'] .'/php/functions/phpmyadmin_connect.php';
+include $_SERVER['DOCUMENT_ROOT'] .'/php/functions/userfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] .'/php/classes/user.php';
 
 $newName = $_POST['name'];
 $newUsername = $_POST['username'];
 $newEmail = $_POST['email'];
 
-if($newName != findNameById(loggedInUsersId())){
-    editUsersName(loggedInUsersId(),$newName);   
+if($newName != loggedInUser()->name){
+    loggedInUser()->editName($newName);  
 }
 
-if($newUsername != findUsernameById(loggedInUsersId())){
-    if(checkIfUsernameExists($newUsername)){
-    editUsersUsername(loggedInUsersId(),$newUsername);
+if($newUsername != loggedInUser()->username){
+    if(!checkIfUsernameExists($newUsername)){
+        loggedInUser()->editUsername($newUsername);
+        createNewUserDirectory(loggedInUser()->user_id);
     }
 }
 
-if($newEmail != findEmailById(loggedInUsersId())){
+if($newEmail != loggedInUser()->email){
     if(check_email_address($newEmail)){
-        if(checkIfEmailExists($newEmail)){
-    editUsersEmail(loggedInUsersId(),$newEmail);   
+        if(!checkIfEmailExists($newEmail)){
+            loggedInUser()->editEmail($newEmail);  
     }
     }
 }
 
-$headerUserId = loggedInUsersId();
+$headerUser = loggedInUser()->username;
 
-header("location: ../../profile.php?i=$headerUserId");
+header("location: /$headerUserId");
 ?>

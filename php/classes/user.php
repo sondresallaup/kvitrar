@@ -6,6 +6,7 @@ class User{
     public $email;
     public $password;
     public $date;
+    public $user_type;
     
     public function __construct($user_id) {
         $this->user_id = $user_id;
@@ -19,6 +20,7 @@ class User{
             $this->name = $constructRowofUser_info['name'];
             $this->date = $constructRowofUser_info['date'];
             $this->username = $constructRowofUser_info['username'];
+            $this->user_type = $constructRowofUser_info['user_type'];
         }
     }
     
@@ -41,6 +43,7 @@ class User{
             $this->user_id = $withUsernameRow_user_info['user_id'];
             $this->name = $withUsernameRow_user_info['name'];
             $this->date = $withUsernameRow_user_info['date'];
+            $this->user_type = $withUsernameRow_user_info['user_type'];
         }
         $withUsernameQuery_users = mysql_query("SELECT * FROM users WHERE user_id = '$this->user_id'");
         while($withUsernameRow_users = mysql_fetch_assoc($withUsernameQuery_users)){
@@ -64,16 +67,15 @@ class User{
 		$_SESSION['loggedin'] = TRUE;
     }
     
-    public function getProfilePicture($picturesize){
-        if(!(is_readable("userfolders/$this->user_id/pictures/profilepicture.jpg")) || !(is_readable("../userfolders/$this->user_id/pictures/profilepicture.jpg")) || !(is_readable("../../userfolders/$this->user_id/pictures/profilepicture.jpg"))){
-             echo '<img src="/php/profile/img/defaultprofilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
-        else{
-             echo '<img src="/userfolders/'.$this->user_id.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'">';}
+    public function getProfilePicture($picturesize){        
+        echo '<img src="/'.$this->username.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'" class="img-circle">';
     }
     
     public function editUsername($newUsername) {
         mysql_query("UPDATE user_info SET username = '$newUsername' WHERE user_id = '$this->user_id'");
-    }
+        rename(($_SERVER['DOCUMENT_ROOT'] .'/'.$this->username), ($_SERVER['DOCUMENT_ROOT'] .'/'.$newUsername));
+        rename(($_SERVER['DOCUMENT_ROOT'] .'/messages/'.$this->username), ($_SERVER['DOCUMENT_ROOT'] .'/messages/'.$newUsername));
+        }
     
     public function editEmail($newEmail) {
         mysql_query("UPDATE users SET email = '$newEmail' WHERE user_id = '$this->user_id'");
@@ -125,14 +127,29 @@ class User{
                 $contact_id = $getmessagecontactsRow['user_two'];
             }
             $contact = new User($contact_id);
-            $getmessagecontactsString = '<li><a href="#'.$contact_id.'" data-toggle="tab">'.$contact->name.'</a></li>';
+            $getmessagecontactsString = '<li';
+            if('/messages/'.$contact->username.'/index.php' == findCurrentPage()){$getmessagecontactsString = $getmessagecontactsString . ' class="active"';}
+            $getmessagecontactsString = $getmessagecontactsString . '><a href="/messages/'.$contact->username.'">'.$contact->name.'</a></li>';
             echo $getmessagecontactsString;
         }
         
     }
     
-    public function getMessages(){
-        $getmessagesQuery = mysql_query("SELECT * FROM conversations WHERE user_one = '$this->user_id' OR user_two = '$this->user_id'");
+    public function getMessages($usertwo_id){
+        $getmessagesQuery = mysql_query("SELECT * FROM conversations WHERE (user_one = '$this->user_id' AND user_two = '$usertwo_id') OR (user_one = '$usertwo_id' AND user_two = '$this->user_id')");
+        if(mysql_num_rows($getmessagesQuery) == 0){
+            $contact = new User($usertwo_id);
+            createContentBoxtoRight();
+            echo '<div class="tab-pane" id="'.$usertwo_id.'">';
+             echo '<div class="well">';
+            echo '<h3><a href="/'.$contact->username.'"> '.$contact->name.'</a></h3><hr>';
+             echo '<form action="/php/functions/newmessage.php" method="POST">';
+            echo '<input type="hidden" name="to_user" value="'.$contact->username.'">';
+            include $_SERVER['DOCUMENT_ROOT'] . '/php/messages/newmessageinputbox.php';
+            
+            echo '</div></div></div>';
+        }
+        else{
         while($getmessagesRow = mysql_fetch_assoc($getmessagesQuery)){
             if($getmessagesRow['user_one']!=  loggedInUsersId()){
                 $contact_id = $getmessagesRow['user_one'];
@@ -144,19 +161,52 @@ class User{
             $conversation = new Conversation();
             $conversation->withConversation_id($conversation_id);
             $contact = new User($contact_id);
-            echo '<div class="tab-pane" id="'.$contact_id.'">';
             createContentBoxtoRight();
-            echo '<br><br>';
+            echo '<div class="tab-pane" id="'.$contact_id.'">';
              echo '<div class="well">';
-            echo '<h3> '.$contact->name.'</h3><hr>';
+            echo '<h3><a href="/'.$contact->username.'"> '.$contact->name.'</a></h3><hr>';
             $conversation->printMessages();
              echo '<form action="/php/functions/newmessage.php" method="POST">';
             echo '<input type="hidden" name="to_user" value="'.$contact->username.'">';
-            include '/php/messages/newmessageinputbox.php';
+            include $_SERVER['DOCUMENT_ROOT'] . '/php/messages/newmessageinputbox.php';
             
             echo '</div></div></div>';
         }
+        }
     }
+    
+    public function isVerified(){
+        if($this->user_type == 'VERIFIED'){
+            return TRUE;
+        }
+    else{
+        return FALSE;
+    }
+    }
+    
+    public function isAdmin(){
+      if($this->user_type == 'ADMIN'){
+            return TRUE;
+        }
+    else{
+        return FALSE;
+    }  
+    }
+    
+    public function verify(){
+        if(!$this->isVerified()){
+            mysql_query("UPDATE user_info SET user_type = 'VERIFIED' WHERE user_id = '$this->user_id'");
+        }
+    }
+    
+     public function getUserTypeIcon($iconSize){
+            if($this->isVerified()){
+                return '  <img src="/php/profile/img/verifiedaccount.png" alt="Vertifisert" height="'.$iconSize.'" width="'.$iconSize.'" title="Vertifisert">';
+            }
+            else if($this->isAdmin()){
+                return '  <img src="/php/profile/img/adminaccount.png" alt="Administrator" height="'.$iconSize.'" width="'.$iconSize.'" title="Administrator">'; 
+            }
+        }
     
 }
 

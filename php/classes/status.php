@@ -30,14 +30,14 @@ class Status{
             $profilepicturesize = 50;
             
             echo $user->getProfilePicture($profilepicturesize);
-        echo '<b> <a href=/'.  $this->user_name.'>'.$user->name.'</a></b>
+        echo '<b> <a href="/'.  $user->username.'">'.$user->name.' '.$user->getUserTypeIcon(15).'</a></b>
             <p class="text-muted">@'.$user->username.'</p>
                 <p>'.  $this->status.'</p>
-               <i class="text-muted">'.  $this->time.'</i><br>';
+               <i class="text-muted">'. timeSince($this->time).'</i><br>';
     }
     
     public function printComments(){
-        $queryComment = mysql_query("SELECT * FROM comments WHERE status_id = '$this->status_id' ORDER BY comment_id DESC");
+        $queryComment = mysql_query("SELECT * FROM comments WHERE status_id = '$this->status_id' ORDER BY comment_id ASC");
         while($commentRow = mysql_fetch_assoc($queryComment)){
             $comment_id = $commentRow['comment_id'];
             $comment = new Comment();
@@ -140,7 +140,7 @@ class Status{
     
     
         public function startWell() {
-        echo '<div class="well well-lg">';
+        echo '<div class="well well-lg"><a name="#'.$this->status_id.'"/>';
     }
     
     public function endWell() {

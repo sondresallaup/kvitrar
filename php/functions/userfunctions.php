@@ -78,7 +78,7 @@ $numusername = mysql_num_rows($usernamequery);
 function insertUserIntoDB($email,$password,$name,$username){
         $usersquery = mysql_query("INSERT INTO users VALUES ('','$email','$password')");
 	$date = currentTime();
-	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username')");
+	$user_infoquery = mysql_query("INSERT INTO user_info VALUES ('','$name','$date','$username','')");
 }
 
 function findUser_idByEmail($email){
@@ -143,21 +143,30 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
     
    function createNewUserDirectory($user_id){
        $user = new User($user_id);
+       
        if(!file_exists("./$user->username/")){
         mkdir("./$user->username/", 0777);
        mkdir("./$user->username/following", 0777);
        mkdir("./$user->username/followers", 0777);
        mkdir("./$user->username/lists", 0777);
        mkdir("./$user->username/favorites", 0777);
+       mkdir("./$user->username/pictures", 0777);
+       mkdir("./messages/$user->username/", 0777);
        }
-       $profiletemplate = file_get_contents("./php/profile/template/index.php", TRUE);
-       $followerstemplate = file_get_contents("./php/profile/template/followers/index.php", TRUE);
-       $followingtemplate = file_get_contents("./php/profile/template/following/index.php", TRUE);
        
-       file_put_contents("./$user->username/index.php", $profiletemplate);
-       file_put_contents("./$user->username/followers/index.php", $followerstemplate);
-       file_put_contents("./$user->username/following/index.php", $followingtemplate);
-   
+       $profiletemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/index.php", TRUE);
+       $followerstemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/followers/index.php", TRUE);
+       $followingtemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/following/index.php", TRUE);
+       $inboxtemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/messages/template/inboxindex.php", TRUE);
+       $defaultprofilepicture = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/img/defaultprofilepicture.jpg", TRUE);
+       
+       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/index.php", $profiletemplate);
+       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/followers/index.php", $followerstemplate);
+       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/following/index.php", $followingtemplate);
+       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/messages/$user->username/index.php", $inboxtemplate);
+       if(!file_exists($_SERVER['DOCUMENT_ROOT'] . "/$user->username/pictures/profilepicture.jpg")){
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/pictures/profilepicture.jpg", $defaultprofilepicture);
+       }
    }
    
    function createUserDirectoriesForAllUsers(){

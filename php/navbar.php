@@ -9,20 +9,22 @@
     </button>
      <div class = "collapse navbar-collapse navHeaderCollapse">
       <ul class = "nav navbar-nav">
-        <li <?php if('index.php' == findCurrentPage()): ?>
+        <li <?php if('/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Hjem</a></li>
         <?php if(isLoggedIn()): ?>
-        <li <?php if('connect.php' == findCurrentPage()): ?> 
-            class = "active" <?php endif; ?>><a href = "/connect.php"><span class="glyphicon glyphicon-record"></span> Notifikasjoner</a></li>
-        <li <?php if('messages.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?>><a href = "/messages.php"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
-        <li <?php if('profile.php' == findCurrentPage()): ?>
+        <li <?php if('/connect/index.php' == findCurrentPage()): ?> 
+            class = "active" <?php endif; ?>><a href = "/connect"><span class="glyphicon glyphicon-record"></span> Notifikasjoner</a></li>
+        <li <?php if('/messages/index.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?>><a href = "/messages"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
+        <li <?php if('/moments/index.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?>><a href = "/moments"><span class="glyphicon glyphicon-calendar"></span> Moments <span class="label label-default">Beta</span></a></li>
+        <li <?php if('/' .  loggedInUser()->username . '/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>
         <?php endif; ?>
         
       </ul>
       <ul class = "nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search" method="post" action="search.php"  id="searchform">
+          <form class="navbar-form navbar-left" role="search" method="post" action="/search/index.php"  id="searchform">
       <div class="form-group">
           <input type="typeahead" class="form-control" placeholder="Søk" name="search">
       </div>

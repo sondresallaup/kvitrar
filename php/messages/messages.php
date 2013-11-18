@@ -1,3 +1,3 @@
 <?php
-include 'php/messages/contacts.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/messages/contacts.php';
 ?>

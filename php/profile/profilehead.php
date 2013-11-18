@@ -6,7 +6,7 @@ createContentBoxtoRight();
       <?php 
       $profilepicturesize = 100;
             $profile_user->getProfilePicture($profilepicturesize); ?>
-    <h3><?php echo $profile_user->name;?></h3>
+    <h3><?php echo $profile_user->name . ' ' . $profile_user->getUserTypeIcon(20);?></h3>
     <h4>@<?php echo $profile_user->username;?></h4>
     <?php if($profile_id != loggedInUsersId() && !$followee->isFollowing()): ?>
     <button onclick="location.href='/php/functions/follow.php?i=<?php echo $profile_id; ?>'" type="button" class="btn btn-info"><span class="glyphicon glyphicon-book"></span> Forfølge</button>
@@ -15,10 +15,13 @@ createContentBoxtoRight();
     <button onclick="location.href='/php/functions/unfollow.php?i=<?php echo $profile_id; ?>'" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-book"></span> Slutt å forfølge</button>
      <?php endif; ?>
     <?php if($profile_id != loggedInUsersId()): ?>
-    <button onclick="location.href='/messages.php?i=<?php echo $profile_id; ?>'" type="button" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> Send melding</button>
+    <button onclick="location.href='/messages/<?php echo $profile_user->username; ?>'" type="button" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> Send melding</button>
     <?php endif; ?>
     <?php if($profile_id == loggedInUsersId()): ?>
      <a data-toggle="modal" href="#settings" class="btn btn-default">Endre profil</a>
+     <?php endif; ?>
+     <?php if($profile_id != loggedInUsersId() && loggedInUser()->isAdmin() && !$profile_user->isVerified() ): ?>
+     <a data-toggle="modal" href="#settings" class="btn btn-default">Verifiser bruker</a>
      <?php endif; ?>
 </div>
 </div>
