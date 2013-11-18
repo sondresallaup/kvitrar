@@ -7,5 +7,15 @@ function createMoment_guestsForMoment($moment_id,$guests){
         }
 }
 
+function printAllMoments(){
+    $printAllMomentsQuery = mysql_query("SELECT * FROM moments ORDER BY moment_id DESC");
+    while($printAllMomentsRow = mysql_fetch_assoc($printAllMomentsQuery)){
+        $moment_id = $printAllMomentsRow['moment_id'];
+        $moment = new Moment();
+        $moment->withMoment_id($moment_id);
+        $moment->printMoment();
+    }
+}
+
 
 ?>

@@ -23,6 +23,7 @@ if($submit){
         $moment->newMoment($momentname, $momenttext, $momenttimefrom, $momenttimeto, 'TRUE');
         $moment->saveInDb();
         $moment->getMoment_id();
+        $moment->createDirectory();
         
         $host = new Moment_guest();
         $host->setMomentCreatorAsHost($moment->moment_id);

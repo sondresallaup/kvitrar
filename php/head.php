@@ -15,6 +15,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/conversation.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/message.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/generatejsonfilefromusers.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/stylingfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment_guest.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/functions/momentfunctions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/functions/momenthtml.php';
 ?>
 <!DOCTYPE html>
 <html>

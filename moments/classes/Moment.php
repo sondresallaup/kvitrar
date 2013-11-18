@@ -37,5 +37,44 @@ class Moment{
     public function getMoment_id(){
         $this->moment_id = mysql_insert_id();
     }
+    
+    public function printMoment(){
+       if($this->isAcitve()){
+           echo createActiveMomentBox();
+       }
+       else{
+           echo createInactiveMomentBox();
+       }
+       echo createMomentBoxHeader('<a href="/moments/'.$this->moment_id.'">'.$this->moment_name .'</a>');
+       echo startMomentBoxBody();
+       echo $this->moment_info;
+       echo endMomentBox();
+    }
+    
+    public function createDirectory(){
+        mkdir($_SERVER['DOCUMENT_ROOT'] ."/moments/$this->moment_id", 0777);
+        $thismomenttemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/moments/template/momentindex.php", TRUE);
+        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/moments/$this->moment_id/index.php", $thismomenttemplate);
+    }
+    
+    public function getGuests(){
+        $guestsQuery = mysql_query("SELECT user_id FROM moment_guest WHERE moment_id = '$this->moment_id'");
+        $i = 0;
+        while($guestRow = mysql_fetch_assoc($guestsQuery)){
+            $guests[$i++] = $guestRow['user_id'];
+        }
+        
+        return $guests;
+    }
+    
+    public function isAcitve() {
+        if($this->active == 'TRUE'){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+        
+    }
    
 }
