@@ -4,11 +4,15 @@ class Status{
     public $user_id;
     public $status;
     public $time;
+    public $media;
     
     public function withStatus($status) {
         $this->status = $status;
+        $this->ifHashtagMakeLink();
+        $this->ifAttagMakeLink();
         $this->user_id = loggedInUsersId();
         $this->time = currentTime();
+        $this->media = 'FALSE';
         }
         
     public function withStatus_id($status_id) {
@@ -18,22 +22,44 @@ class Status{
             $this->user_id = $statusesByIdRow['user_id'];
             $this->status = $statusesByIdRow['status'];
             $this->time = $statusesByIdRow['time'];
+            $this->media = $statusesByIdRow['media'];
         }
+    }
+    
+    public function withMedia($status, $media){
+        $this->status = $status;
+        $this->ifHashtagMakeLink();
+        $this->ifAttagMakeLink();
+        $this->media = $media;
+        $this->time = currentTime();
+        $this->user_id = loggedInUser()->user_id;
     }
         
     public function saveInDb() {
-        mysql_query("INSERT INTO status VALUES ('','$this->user_id','$this->status','$this->time')");
+        mysql_query("INSERT INTO status VALUES ('','$this->user_id','$this->status','$this->time','$this->media')");
+    }
+    
+    public function getLastInsertedId(){
+        $this->status_id = mysql_insert_id();
     }
     
     public function printStatus() {
         $user = new User($this->user_id);
             $profilepicturesize = 50;
-            
             echo $user->getProfilePicture($profilepicturesize);
-        echo '<b> <a href="/'.  $user->username.'">'.$user->name.' '.$user->getUserTypeIcon(15).'</a></b>
-            <p class="text-muted">@'.$user->username.'</p>
-                <p>'.  $this->status.'</p>
-               <i class="text-muted">'. timeSince($this->time).'</i><br>';
+        echo '<b> <a href="/'.  $user->username.'">'.$user->name.' '.$user->getUserTypeIcon(15).'</a></b>';
+        echo '<p class="text-muted">@'.$user->username.'</p>';
+        echo '<p>'.  $this->status.'</p>';
+        if($this->isMedia()){
+            $this->printMedia();
+        }
+        echo '<i class="text-muted">'. timeSince($this->time).'</i><br>';      
+    }
+    
+    public function printMedia(){
+        $user = new User($this->user_id);
+        $imgsize = 350;
+        echo '<img src="/'.$user->username.'/pictures/'.$this->media.'" width="'.$imgsize.'"><br>';
     }
     
     public function printComments(){
@@ -135,6 +161,23 @@ class Status{
             }
             $stringOfdislikers = $stringOfdislikers." liker ikke dette.";
             echo $stringOfdislikers;
+        }
+    }
+    
+    public function ifHashtagMakeLink(){
+        $this->status = preg_replace("/#(\w+)/i", "<a href=\"/hashtag/?i=$1\">$0 </a>", $this->status);
+    }
+    
+    public function ifAttagMakeLink(){
+        $this->status = preg_replace("/@(\w+)/i", "<a href=\"/$1\">$0</a>", $this->status);
+    }
+    
+    public function isMedia(){
+        if($this->media != 'FALSE'){
+            return TRUE;
+        }
+        else{
+            return FALSE;
         }
     }
     

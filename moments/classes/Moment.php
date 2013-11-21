@@ -38,7 +38,7 @@ class Moment{
         $this->moment_id = mysql_insert_id();
     }
     
-    public function printMoment(){
+    public function printMomentThumbnail(){
        if($this->isAcitve()){
            echo createActiveMomentBox();
        }
@@ -75,6 +75,15 @@ class Moment{
             return FALSE;
         }
         
+    }
+    
+    public function createMomentBoxBasedOnActivity(){
+        if($this->isAcitve() == 'TRUE'){
+            return createActiveMomentBox();
+        }
+        else if($this->isAcitve() == 'FALSE'){
+            return createInactiveMomentBox();
+        }
     }
    
 }

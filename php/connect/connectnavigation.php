@@ -4,7 +4,7 @@
         <?php createContentBoxtoLeft();?>
     <br><br>
     <div class="well">
-        <p>Her kommer det noe</p>
+         <?php include $_SERVER['DOCUMENT_ROOT'] . '/php/connect/friendrequests.php'; ?>
         
         </div>
 </div>

@@ -13,7 +13,7 @@ function printAllMoments(){
         $moment_id = $printAllMomentsRow['moment_id'];
         $moment = new Moment();
         $moment->withMoment_id($moment_id);
-        $moment->printMoment();
+        $moment->printMomentThumbnail();
     }
 }
 

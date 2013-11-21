@@ -9,6 +9,8 @@ class Comment{
     public function withCommentandStatus_id($comment,$status_id) {
         $this->status_id = $status_id;
         $this->comment = $comment;
+        $this->ifAttagMakeLink();
+        $this->ifHashtagMakeLink();
         $this->user_id = loggedInUsersId();
         $this->time = currentTime();
         }
@@ -26,11 +28,16 @@ class Comment{
         
     public function saveInDb() {
         mysql_query("INSERT INTO comments VALUES ('','$this->status_id','$this->user_id','$this->comment','$this->time')");
+        $this->comment_id = mysql_insert_id();
         $commentnotification = new Notification();
         $status = new Status();
         $status->withStatus_id($this->status_id);
         $commentnotification->byUser_idandType($status->user_id,"COMMENT",  $this->status_id);
         $commentnotification->saveInDb();
+    }
+    
+    public function getLastInsertedId(){
+        $this->comment_id = mysql_insert_id();
     }
     
     public function printComment() {
@@ -45,6 +52,13 @@ class Comment{
                <i class="text-muted">'.  timeSince($this->time).'</i><br>';
     }
     
+    public function ifHashtagMakeLink(){
+        $this->comment = preg_replace("/#(\w+)/i", "<a href=\"/hashtag/?i=$1\">$0 </a>", $this->comment);
+    }
+    
+    public function ifAttagMakeLink(){
+        $this->comment = preg_replace("/@(\w+)/i", "<a href=\"/$1\">$0</a>", $this->comment);
+    }
     
     }
 

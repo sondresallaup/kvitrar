@@ -68,7 +68,7 @@ class User{
     }
     
     public function getProfilePicture($picturesize){        
-        echo '<img src="/'.$this->username.'/pictures/profilepicture.jpg" border=0 with="'.$picturesize.'" height="'.$picturesize.'" class="img-circle">';
+        echo '<img src="/'.$this->username.'/pictures/profilepicture.jpg" border=0 width="'.$picturesize.'" height="'.$picturesize.'" class="img-circle">';
     }
     
     public function editUsername($newUsername) {
@@ -105,16 +105,10 @@ class User{
         return $numberofstatuses;
     }
     
-    public function getNumberFollowees(){
-        $queryoffollowees = mysql_query("SELECT * FROM follow WHERE follower_id = '$this->user_id'");
-        $numberoffollowees = mysql_num_rows($queryoffollowees);
-        return $numberoffollowees;
-    }
-    
-    public function getNumberFollowers(){
-        $queryoffollowers = mysql_query("SELECT * FROM follow WHERE followee_id = '$this->user_id'");
-        $numberoffollowers = mysql_num_rows($queryoffollowers);
-        return $numberoffollowers;
+    public function getNumberFriends(){
+        $queryoffriends = mysql_query("SELECT * FROM friends WHERE user_one_id = '$this->user_id' OR user_two_id = '$this->user_id'");
+        $numberoffriends = mysql_num_rows($queryoffriends);
+        return $numberoffriends;
     }
     
     public function getMessageContacts(){
@@ -207,7 +201,40 @@ class User{
                 return '  <img src="/php/profile/img/adminaccount.png" alt="Administrator" height="'.$iconSize.'" width="'.$iconSize.'" title="Administrator">'; 
             }
         }
+        
+    public function getNumberUnSeenNotifications(){
+    $unseennotificationsquery = mysql_query("SELECT seen FROM notifications WHERE to_user_id = '$this->user_id' AND seen = 'FALSE'");
+    $numberunseennotifications = mysql_num_rows($unseennotificationsquery);
+    return $numberunseennotifications;
+}
+
+    public function setAllNotificationsToUserToSeen(){
+    $setseennotificationsquery = mysql_query("SELECT seen FROM notifications WHERE to_user_id = '$this->user_id' AND seen = 'FALSE'");
+    while($setseennotificationsRow = mysql_fetch_assoc($setseennotificationsquery)){
+        $notification_id = $setseennotificationsRow['notification_id'];
+        $notification = new Notification();
+        $notification->byNotification_id($notification_id);
+        $notification->setAsSeen();
+    }
+    }
     
+    public function getNotificationsInDropdown(){
+        $numberNotificationLimit = 10;
+        $getNotificationsInDropdownQuery = mysql_query("SELECT notification_id FROM notifications WHERE to_user_id = '$this->user_id' ORDER BY notification_id DESC");
+        while($getNotificationsInDropdownRow = mysql_fetch_assoc($getNotificationsInDropdownQuery)){
+            $notification_id = $getNotificationsInDropdownRow['notification_id'];
+            $notification = new Notification();
+            $notification->byNotification_id($notification_id);
+            
+            echo '<li><a href="/connect">'.$notification->printShortNotification().'</a></li>';
+            
+            
+            
+            if(++$i > $numberNotificationLimit){
+                break;
+            }
+        }
+    }
 }
 
 ?>

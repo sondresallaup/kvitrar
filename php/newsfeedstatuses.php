@@ -7,8 +7,9 @@ while($statusRow = mysql_fetch_assoc($queryStatus)){
     $sta_id = $statusRow['status_id'];
     $status = new Status();
     $status->withStatus_id($sta_id);
-    $followee = new Followee($user_id,$status->user_id);
-    if($followee->isFollowing() || $status->user_id == $user_id){
+    $friend = new Friend();
+    $friend->withUserTwoOrUserOneAndUseIsLoggedIn($status->user_id);
+    if($friend->isFriends() || $status->user_id == $user_id){
         $status->startWell();
         $status->printStatus();
         echo '<div class="btn-group">';

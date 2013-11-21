@@ -6,6 +6,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/statusfunctions.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/datefunctions.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/user.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/followee.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/friend_request.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/friend.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/status.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/like.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/dislike.php';

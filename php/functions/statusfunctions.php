@@ -48,4 +48,27 @@ function getStatusTime($sta_id){
    }
    return $time;
 }
+
+function uptateTrendingHashtags(){
+$trendingQuery = mysql_query("SELECT * FROM hashtags");
+$trendingArray = array();
+while($trendingRow = mysql_fetch_assoc($trendingQuery)){
+    $hashtag = $trendingRow['hashtag'];
+    
+    $trendingArray[$hashtag]++;
+}
+arsort($trendingArray);
+$limit = 10;
+foreach ($trendingArray as $hashtag => $numberhashtags){
+    /*echo '<a href="/hashtag/?i='.$hashtag.'">';
+    echo '#'.$hashtag;
+    echo '</a><br>';*/
+    $trendingString = $trendingString . '<a href="/hashtag/?i='.$hashtag.'">#'.$hashtag.'</a><br>';
+    
+    if(++$i > $limit){
+        break;
+    }
+}
+file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/php/trending.txt", $trendingString);
+}
 ?>

@@ -6,12 +6,14 @@ class Notification{
     public $notification_type;
     public $type_id;
     public $time;
+    public $seen;
     
     public function byUser_idandType($to_user_id,$notification_type,$type_id) {
         $this->from_user_id = loggedInUsersId();
         $this->to_user_id = $to_user_id;
         $this->notification_type = $notification_type;
         $this->type_id = $type_id;
+        $this->seen = 'FALSE';
     }
     
     public function byNotification_id($notification_id){
@@ -23,13 +25,14 @@ class Notification{
             $this->notification_type = $notificationsbyidRow['notification_type'];
             $this->type_id = $notificationsbyidRow['type_id'];
             $this->time = $notificationsbyidRow['time'];
+            $this->seen = $notificationsbyidRow['seen'];
         }
     }
     
     public function saveInDb(){
         $this->time = currentTime();
         if(!$this->isFromandToUserTheSame() && !$this->isAlreadyNotified()){
-        $saveNotificationindbQuery = mysql_query("INSERT INTO notifications VALUES ('','$this->from_user_id','$this->to_user_id','$this->notification_type','$this->type_id','$this->time')");
+        $saveNotificationindbQuery = mysql_query("INSERT INTO notifications VALUES ('','$this->from_user_id','$this->to_user_id','$this->notification_type','$this->type_id','$this->time','$this->seen')");
         }
     }
     
@@ -43,6 +46,14 @@ class Notification{
         echo $printNotificationString ."<hr>";
         
         
+    }
+    
+    public function printShortNotification(){
+        $fromUser = new User($this->from_user_id);
+        if(!$this->isSeen()){$shortNotificationString = '<b>';}
+        $shortNotificationString = $shortNotificationString . $this->getNotificationIcon(). " <b>".$fromUser->name."</b> ".$this->getNotificationHeader();
+        if(!$this->isSeen()){$shortNotificationString = $shortNotificationString . '</b>';}
+        return $shortNotificationString;
     }
     
 public function getNotificationHeader(){
@@ -92,9 +103,21 @@ public function getNotificationIcon(){
         return '<span class="glyphicon glyphicon-book"></span>';
     }
 }
+    
+public function isSeen(){
+    if($this->seen == 'TRUE'){
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
+}
 
+public function setAsSeen(){
+    mysql_query("UPDATE notifications SET seen = 'TRUE' WHERE notification_id = '$this->notification_id'");
+}
 
-    public function isFromandToUserTheSame(){
+public function isFromandToUserTheSame(){
         if($this->from_user_id == $this->to_user_id){
             return TRUE;
         }

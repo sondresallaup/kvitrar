@@ -58,7 +58,12 @@ function loggedInUsersUsername(){
 }
 
 function isLoggedIn(){
-    return $_SESSION['loggedin'];
+    if ($_SESSION['user_id']){
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
 }
 
 function checkIfEmailExists($email){
@@ -143,11 +148,10 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
     
    function createNewUserDirectory($user_id){
        $user = new User($user_id);
-       
+       mkdir("./$user->username/friends", 0777);
        if(!file_exists("./$user->username/")){
         mkdir("./$user->username/", 0777);
-       mkdir("./$user->username/following", 0777);
-       mkdir("./$user->username/followers", 0777);
+       mkdir("./$user->username/friends", 0777);
        mkdir("./$user->username/lists", 0777);
        mkdir("./$user->username/favorites", 0777);
        mkdir("./$user->username/pictures", 0777);
@@ -155,14 +159,12 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
        }
        
        $profiletemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/index.php", TRUE);
-       $followerstemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/followers/index.php", TRUE);
-       $followingtemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/following/index.php", TRUE);
+       $friendsstemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/template/friends/index.php", TRUE);
        $inboxtemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/messages/template/inboxindex.php", TRUE);
        $defaultprofilepicture = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/php/profile/img/defaultprofilepicture.jpg", TRUE);
        
        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/index.php", $profiletemplate);
-       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/followers/index.php", $followerstemplate);
-       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/following/index.php", $followingtemplate);
+       file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/friends/index.php", $friendsstemplate);
        file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/messages/$user->username/index.php", $inboxtemplate);
        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . "/$user->username/pictures/profilepicture.jpg")){
         file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/$user->username/pictures/profilepicture.jpg", $defaultprofilepicture);
@@ -213,6 +215,15 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
 
         // Output result 
         return $visitor_location['City'];
+   }
+   
+   function getFriend_request_idByFrom_user_id($from_user_id){
+       $loggedinuser_id = loggedInUser()->user_id;
+       $getFriend_request_idByFrom_user_idQuery = mysql_query("SELECT * FROM friend_requests WHERE
+           from_user_id = '$from_user_id' AND to_user_id = '$loggedinuser_id'");
+       while($getFriend_request_idByFrom_user_idRow = mysql_fetch_assoc($getFriend_request_idByFrom_user_idQuery)){
+           return $getFriend_request_idByFrom_user_idRow['friend_request_id'];
+       }
    }
    
    

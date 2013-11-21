@@ -12,14 +12,20 @@
         <li <?php if('/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "http://sondresallaup.com"><span class="glyphicon glyphicon-home"></span> Hjem</a></li>
         <?php if(isLoggedIn()): ?>
-        <li <?php if('/connect/index.php' == findCurrentPage()): ?> 
-            class = "active" <?php endif; ?>><a href = "/connect"><span class="glyphicon glyphicon-record"></span> Notifikasjoner</a></li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><?php echo loggedInUser()->getNumberUnSeenNotifications(); ?></span> Notifikasjoner <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <?php echo loggedInUser()->getNotificationsInDropdown(); ?>
+          <li class="divider"></li>
+          <li><a href="/connect/">Se alle notifikasjoner</a></li>
+        </ul>
+      </li>
         <li <?php if('/messages/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?>><a href = "/messages"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
         <li <?php if('/moments/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?>><a href = "/moments"><span class="glyphicon glyphicon-calendar"></span> Moments <span class="label label-default">Beta</span></a></li>
         <li <?php if('/' .  loggedInUser()->username . '/index.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><span class="glyphicon glyphicon-user"></span> Meg</a></li>
+            class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><?php loggedInUser()->getProfilePicture(20);?> Meg</a></li>
         <?php endif; ?>
         
       </ul>

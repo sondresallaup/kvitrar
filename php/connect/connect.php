@@ -12,6 +12,7 @@
           $notification = new Notification();
           $notification->byNotification_id($notification_id);
           $notification->printNotification();
+          $notification->setAsSeen();
       }
       ?>
 </div>
