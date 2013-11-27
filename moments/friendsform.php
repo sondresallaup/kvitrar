@@ -8,12 +8,15 @@
               <fieldset data-role="controlgroup">
           <?php 
           $loggedInUsersId = loggedInUser()->user_id;
-          $friendQuery = mysql_query("SELECT * FROM follow WHERE follower_id = '$loggedInUsersId'");
+          $friendQuery = mysql_query("SELECT * FROM friends WHERE user_one_id = '$loggedInUsersId' OR user_two_id = '$loggedInUsersId'");
           $i = 0;
           echo '<ul>';
           while($friendRow = mysql_fetch_assoc($friendQuery)){
               $i++;
-              $friend_id = $friendRow['followee_id'];
+              $friend_id = $friendRow['user_one_id'];
+              if($friend_id == loggedInUser()->user_id){
+                  $friend_id = $friendRow['user_two_id'];
+              }
               $friend = new User($friend_id);
               echo '<li>';
               echo '<input type="checkbox" name="friends[]" id="friend-'.$i.'" value="'.$friend->user_id.'"/>';

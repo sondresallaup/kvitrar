@@ -51,7 +51,7 @@ class Status{
         echo '<p class="text-muted">@'.$user->username.'</p>';
         echo '<p>'.  $this->status.'</p>';
         if($this->isMedia()){
-            $this->printMedia();
+            echo $this->printMedia();
         }
         echo '<i class="text-muted">'. timeSince($this->time).'</i><br>';      
     }
@@ -165,7 +165,7 @@ class Status{
     }
     
     public function ifHashtagMakeLink(){
-        $this->status = preg_replace("/#(\w+)/i", "<a href=\"/hashtag/?i=$1\">$0 </a>", $this->status);
+        $this->status = preg_replace("/#(\w+)/i", "<a href=\"/hashtag/?i=$1\">$0 </a></a>", $this->status);
     }
     
     public function ifAttagMakeLink(){

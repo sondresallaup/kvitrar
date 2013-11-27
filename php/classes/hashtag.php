@@ -29,6 +29,20 @@ class Hashtag{
         $this->saveAllHashTagsInArray($comment);
     }
     
+    public function newHashtagFromMoment_status($moment_status, $moment_status_id){
+        $this->hashtag_id = "";
+        $this->hashtag_type = 'MOMENT_STATUS';
+        $this->hashtag_type_id = $moment_status_id;
+        $this->saveAllHashTagsInArray($moment_status);
+    }
+    
+    public function newHashtagFromMoment_status_comment($moment_status_comment, $moment_status_comment_id){
+        $this->hashtag_id = "";
+        $this->hashtag_type = 'MOMENT_STATUS_COMMENT';
+        $this->hashtag_type_id = $moment_status_comment_id;
+        $this->saveAllHashTagsInArray($moment_status_comment);
+    }
+    
     public function saveAllHashTagsInArray($string){
         $this->hashtagArray = array();
         $i = 0;

@@ -19,6 +19,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/generatejsonfilefromusers.ph
 include $_SERVER['DOCUMENT_ROOT'] . '/php/functions/stylingfunctions.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment_guest.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment_status.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/moments/classes/Moment_status_comment.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/moments/functions/momentfunctions.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/moments/functions/momenthtml.php';
 ?>

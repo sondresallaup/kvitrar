@@ -43,4 +43,16 @@
     </div>
   </div>
 </div>
-<?php ?>
+<?php 
+createRow();
+createContentBoxtoRight();
+if(loggedInUser()->getNumberUnSeenNotifications()!= 0 ){
+    echo '<div class="alert alert-info alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  Du har fått en <a href="/notifications" class="alert-link">notifikasjon</a>
+</div>';
+}
+echo '</div>';
+echo '</div>';
+
+?>
