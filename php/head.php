@@ -33,6 +33,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/moments/functions/momenthtml.php';
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" content="text/html; charset=UTF-8">
                 <link href = "/css/bootstrap.css" rel = "stylesheet">
                  <link href="/css/signin.css" rel="stylesheet">
+                 <link href="/css/customstyle.css" rel="stylesheet">
               <!--  <link href = "css/styles.css" rel = "stylesheet"> -->
         </head>
         <body>

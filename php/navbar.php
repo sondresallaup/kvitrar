@@ -24,6 +24,8 @@
             class = "active" <?php endif; ?>><a href = "/messages"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
         <li <?php if('/moments/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?>><a href = "/moments"><span class="glyphicon glyphicon-calendar"></span> Moments <span class="label label-default">Beta</span></a></li>
+        <li <?php if('/newmail/index.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?>><a href = "/newmail"><span class="glyphicon glyphicon-tower"></span> NewMail <span class="label label-default">Beta</span></a></li>
         <li <?php if('/' .  loggedInUser()->username . '/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><?php loggedInUser()->getProfilePicture(20);?> Meg</a></li>
         <?php endif; ?>

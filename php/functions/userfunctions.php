@@ -226,5 +226,21 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
        }
    }
    
+   function insertImageIntoPolaroid($image){
+       $dest = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'] .'/newmail/img/polaroid.png');
+        $src = imagecreatefromjpeg($image);
+
+        imagealphablending($dest, false);
+        imagesavealpha($dest, true);
+
+        imagecopymerge($dest, $src, 93, 100, 0, 0, 1010, 1000, 100); //have to play with these numbers for it to work for you, etc.
+
+        header('Content-Type: image/png');
+        imagepng($dest);
+
+        imagedestroy($dest);
+        imagedestroy($src);
+   }
+   
    
 ?>
