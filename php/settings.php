@@ -6,7 +6,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <?php if(loggedInUsersId()== $profile_id): ?>
           <h4 class="modal-title">Innstillinger</h4>
         </div>
         <div class="modal-body">
@@ -16,6 +15,7 @@
                  <li class="active"><a href="#account" data-toggle="tab">Generelt</a></li>
                 <li><a href="#password" data-toggle="tab">Endre passord</a></li>
                 <li><a href="#profilepicture" data-toggle="tab">Endre profilbilde</a></li>
+                <li><a href="#adress" data-toggle="tab">Endre adresseopplysninger</a></li>
                 </ul>
             
             <div class="tab-content">
@@ -63,6 +63,22 @@
                   </div>
                   </form>
                 </div>
+                
+                <div class="tab-pane" id="adress">
+                  <h3>Endre adresseopplysninger</h3>
+                  <?php $user_adress = loggedInUser()->getUserAdress();
+                  ?>
+                  <form action="/php/functions/editadress.php" method="post">
+                      Gate:<input class="form-control" type="text" name="street" value="<?php echo $user_adress->street; ?>">
+                      Postnummer:<input class="form-control" type="number" name="zip" value="<?php echo $user_adress->zip; ?>">
+                      Poststed:<input class="form-control" type="text" name="city" value="<?php echo $user_adress->city; ?>">
+                      Land:<input class="form-control" value="Norway" type="text" name="country" value="<?php echo $user_adress->country; ?>">
+                    <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Lagre endringer</button>
+                  </div>
+                  </form>
+                </div>
 
                    </div>
                 
@@ -70,7 +86,6 @@
             
                  
             </div>
-              <?php endif; ?> 
            <?php if(loggedInUser()->isAdmin() && loggedInUsersId()!= $profile_id): ?>
           <h4 class="modal-title">Verifiser brukerkonto</h4>
         </div>

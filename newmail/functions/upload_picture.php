@@ -10,6 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/classes/user.php';
 $allowedExts = array("gif", "jpeg", "jpg", "png");
 $temp = explode(".", $_FILES["file"]["name"]);
 $extension = end($temp);
+$uniqueid = getUnique_id();
 if ((($_FILES["file"]["type"] == "image/gif")
 || ($_FILES["file"]["type"] == "image/jpeg")
 || ($_FILES["file"]["type"] == "image/jpg")
@@ -26,12 +27,12 @@ if ((($_FILES["file"]["type"] == "image/gif")
   else
     {
       
-          $compressed = compress_image($_FILES["file"]["tmp_name"], '../../'.  loggedInUser()->username.'/pictures/'.$_FILES["file"]["name"], 35);
+          $compressed = compress_image($_FILES["file"]["tmp_name"], '../../'.  loggedInUser()->username.'/pictures/'.$uniqueid, 35);
           
       //move_uploaded_file($compressed,
       //"../../" . loggedInUser()->username. "/pictures/"  .$compressed);      
       
-          $_SESSION['newmail'] = $_FILES["file"]["name"];
+          $_SESSION['newmail'] = $uniqueid;
       
       header('Location: ' . $_SERVER['HTTP_REFERER']);
     }

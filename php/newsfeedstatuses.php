@@ -7,6 +7,13 @@ $queryStatus = mysql_query("SELECT * FROM status ORDER BY status_id DESC LIMIT 1
 $user_id = loggedInUsersId();
 
 echo"<h2>Nyhetsoppdatering</h2>";
+$user_adress = loggedInUser()->getUserAdress();
+if(!$user_adress->isExisting()){
+    echo '<div class="well">';
+    echo '<b>Manglende adresseopplysninger</b>';
+    echo '<p>Vi i Kvitrar har nå lagt til mulighet for å legge til bostedsadresse. Vennligst gjør dette i innstillinger.</p>';
+    echo '</div>';
+}
 while($statusRow = mysql_fetch_assoc($queryStatus)){
     $sta_id = $statusRow['status_id'];
     $status = new Status();

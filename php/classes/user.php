@@ -71,6 +71,12 @@ class User{
         echo '<img src="/'.$this->username.'/pictures/profilepicture.jpg" border=0 width="'.$picturesize.'" height="'.$picturesize.'" class="img-circle">';
     }
     
+    public function getUserAdress(){
+        $user_adress = new User_adress();
+        $user_adress->getAdressByUser_id($this->user_id);
+        return $user_adress;
+    }
+    
     public function editUsername($newUsername) {
         mysql_query("UPDATE user_info SET username = '$newUsername' WHERE user_id = '$this->user_id'");
         rename(($_SERVER['DOCUMENT_ROOT'] .'/'.$this->username), ($_SERVER['DOCUMENT_ROOT'] .'/'.$newUsername));
@@ -193,14 +199,31 @@ class User{
         }
     }
     
-     public function getUserTypeIcon($iconSize){
-            if($this->isVerified()){
-                return '  <img src="/php/profile/img/verifiedaccount.png" alt="Vertifisert" height="'.$iconSize.'" width="'.$iconSize.'" title="Vertifisert">';
-            }
-            else if($this->isAdmin()){
-                return '  <img src="/php/profile/img/adminaccount.png" alt="Administrator" height="'.$iconSize.'" width="'.$iconSize.'" title="Administrator">'; 
-            }
+    public function hasAdress(){
+        $user_adress = $this->getUserAdress();
+        if($user_adress->isExisting()){
+            return TRUE;
         }
+        return FALSE;
+    }
+    
+    public function setWallet(){
+        $wallet = new Wallet($this->user_id);
+        return $wallet;
+    }
+    
+    public function getWalletValue(){
+        return $this->setWallet()->amount;
+    }
+
+    public function getUserTypeIcon($iconSize){
+        if($this->isVerified()){
+            return '  <img src="/php/profile/img/verifiedaccount.png" alt="Vertifisert" height="'.$iconSize.'" width="'.$iconSize.'" title="Vertifisert">';
+        }
+        else if($this->isAdmin()){
+            return '  <img src="/php/profile/img/adminaccount.png" alt="Administrator" height="'.$iconSize.'" width="'.$iconSize.'" title="Administrator">'; 
+        }
+    }
         
     public function getNumberUnSeenNotifications(){
     $unseennotificationsquery = mysql_query("SELECT seen FROM notifications WHERE to_user_id = '$this->user_id' AND seen = 'FALSE'");
@@ -234,6 +257,10 @@ class User{
                 break;
             }
         }
+    }
+    
+    public function getPictureURL($picture){
+        return '/' . $this->username . '/pictures/' . $picture;
     }
 }
 

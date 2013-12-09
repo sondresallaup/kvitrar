@@ -242,5 +242,9 @@ function check_email_address($email) { //http://stackoverflow.com/questions/6232
         imagedestroy($src);
    }
    
+   function getUnique_id(){
+       return uniqid("", true);
+   }
+   
    
 ?>
