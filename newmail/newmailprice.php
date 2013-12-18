@@ -13,8 +13,27 @@ if(isLoggedIn()){
 $friends = $_POST['friends'];
 $picture = $_POST['picture'];
 $picturetext = $_POST['picturetext'];
+
+$name = $_POST['name'];
+$street = $_POST['street'];
+$zip = $_POST['zip'];
+$city = $_POST['city'];
+$country = $_POST['country'];
+
 echo '<form method="POST" action="/newmail/functions/newnewmail.php">';
-if($friends){
+
+$country = 'Norway';
+
+if($name && $street && $zip && $city && $country){
+    $adress_person = new Adress_person();
+    $adress_person->withAdress($name, $street, $zip, $city, $country);
+    $adress_person->saveInDb();
+    $adress_person_friend = new Friend();
+    $adress_person_friend->newFriend(loggedInUser()->user_id, $adress_person->user_id);
+    $adress_person_friend->saveInDb();
+    echo '<input type="hidden" name="friends[]" value="'.$adress_person->user_id.'">';
+    $numberCopies++;
+}
    foreach($friends as $user_id){
        $numberCopies++;
        echo '<input type="hidden" name="friends[]" value="'.$user_id.'">';
@@ -33,7 +52,7 @@ if($friends){
 }
 
 
-}
+
 
 echo '</div></div></div>';
 include $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';

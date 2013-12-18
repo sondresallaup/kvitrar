@@ -6,6 +6,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <?php if(loggedInUsersId()== $profile_id || !$profile_id): ?>
           <h4 class="modal-title">Innstillinger</h4>
         </div>
         <div class="modal-body">
@@ -24,9 +25,9 @@
                   <h5>Generelle innstillinger</h5>
                   
                   <form method="POST" action="/php/functions/edituser.php">
-                    Navn:<input class="form-control" type="text" name="name" value="<?php echo $profile_user->name;?>">
-                    Brukernavn: <input class="form-control" type="text" name="username" value="<?php echo $profile_user->username;?>">
-                    E-post: <input class="form-control" type="text" name="email" value="<?php echo $profile_user->email;?>">
+                      Navn:<input class="form-control" type="text" name="name" value="<?php echo loggedInUser()->name;?>">
+                    Brukernavn: <input class="form-control" type="text" name="username" value="<?php echo loggedInUser()->username;?>">
+                    E-post: <input class="form-control" type="text" name="email" value="<?php echo loggedInUser()->email;?>">
                   <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                       <button type="submit" class="btn btn-primary">Lagre endringer</button>
@@ -86,7 +87,8 @@
             
                  
             </div>
-           <?php if(loggedInUser()->isAdmin() && loggedInUsersId()!= $profile_id): ?>
+          <?php endif; ?> 
+           <?php if(loggedInUser()->isAdmin() && loggedInUsersId()!= $profile_id && $profile_id): ?>
           <h4 class="modal-title">Verifiser brukerkonto</h4>
         </div>
         <div class="modal-body">

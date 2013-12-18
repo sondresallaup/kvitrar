@@ -23,7 +23,10 @@
         <li <?php if('/messages/index.php' == findCurrentPage()): ?>
             class = "active" <?php endif; ?>><a href = "/messages"><span class="glyphicon glyphicon-envelope"></span> Meldinger</a></li>
         <li <?php if('/' .  loggedInUser()->username . '/index.php' == findCurrentPage()): ?>
-            class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><?php loggedInUser()->getProfilePicture(20);?> Meg (NOK <?php echo loggedInUser()->getWalletValue(); ?>) </a></li>
+            class = "active" <?php endif; ?> ><a href = "/<?php echo loggedInUser()->username; ?>"><?php loggedInUser()->getProfilePicture(20);?> Meg</a></li>
+        <li <?php if('/transactions/index.php' == findCurrentPage()): ?>
+            class = "active" <?php endif; ?> ><a href = "/transactions"><span class="label label-default">(NOK <?php echo loggedInUser()->getWalletValue(); ?>)</span> </a></li>
+        
         <?php endif; ?>
         
       </ul>

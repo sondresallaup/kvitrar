@@ -12,6 +12,8 @@ if(!$user_adress->isExisting()){
     echo '<div class="well">';
     echo '<b>Manglende adresseopplysninger</b>';
     echo '<p>Vi i Kvitrar har nå lagt til mulighet for å legge til bostedsadresse. Vennligst gjør dette i innstillinger.</p>';
+    echo '<a data-toggle="modal" href="#settings" class="btn btn-default">Profilinnstillinger</a>';
+    include $_SERVER['DOCUMENT_ROOT'] . '/php/settings.php';
     echo '</div>';
 }
 while($statusRow = mysql_fetch_assoc($queryStatus)){

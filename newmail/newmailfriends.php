@@ -34,15 +34,26 @@ if(isLoggedIn()): ?>
               echo '</li>';
               
           }
+          while($adressrow = mysql_fetch_assoc($friendQuery)){
+              $i++;
+              $friend_id = $adressrow['user_two_id'];
+              $friend = new Adress_person();
+              $friend->withUser_id($friend_id);
+              echo '<li>';
+              echo '<input type="checkbox" name="friends[]" id="friend-'.$i.'" value="'.$friend->user_id.'"/>';
+              echo '<label for="friend-'.$i.'">  '.$friend->name.'</label>';
+              echo '</li>';
+              
+          }
           echo '</ul>';
           ?>
     </fieldset>
     <h3>Annen kontakt:</h3>
     <input type="text" name="name" placeholder="Fullt navn" class="form-control">
-    <input type="text" name="streetadress" placeholder="Gateadresse" class="form-control">
-    <input type="number" name="zipnumber" placeholder="Postnummer" class="form-control">
+    <input type="text" name="street" placeholder="Gateadresse" class="form-control">
+    <input type="number" name="zip" placeholder="Postnummer" class="form-control">
     <input type="text" name="city" placeholder="Poststed" class="form-control">
-    <input type="text" name="country" placeholder="Norge" value="NO" disabled class="form-control">
+    <input type="text" name="country" placeholder="Norge" value="Norway" disabled class="form-control">
     <input type="hidden" name="picture" value="<?php echo $picture; ?>"><br>
     <input type="hidden" name="picturetext" value="<?php echo $picturetext; ?>"><br>
 <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Post</button>

@@ -262,6 +262,16 @@ class User{
     public function getPictureURL($picture){
         return '/' . $this->username . '/pictures/' . $picture;
     }
+    
+    public function printUsersTransactions(){
+        $transactionQuery = mysql_query("SELECT transaction_id FROM transactions WHERE user_id = '$this->user_id'");
+        while($transactionRow = mysql_fetch_assoc($transactionQuery)){
+            $transaction_id = $transactionRow['transaction_id'];
+            $transaction = new Transaction();
+            $transaction->withTransaction_id($transaction_id);
+            $transaction->printTransaction();
+        }
+    }
 }
 
 ?>

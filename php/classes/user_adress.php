@@ -50,6 +50,18 @@ class User_adress{
     public function createAdress($street,$zip,$city,$country){
         mysql_query("INSERT INTO user_adresses VALUES ('$this->user_id','$street','$zip','$city','$country')");
     }
+    
+    public function getUser(){
+        $user = new User($this->user_id);
+        return $user;
+    }
+
+
+    public function getWholeAdress(){
+        $name = $this->getUser()->name;
+        $adress = $name . '<br>' . $this->street . '<br>' . $this->zip . '<br>' . $this->city . '<br>' . $this->country;
+        return $adress;
+    }
 }
 
 ?>
